@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS t_validate_rule;
 DROP TABLE IF EXISTS t_validate_rule_group;
 DROP TABLE IF EXISTS t_validate_rule_group_rule;
 DROP TABLE IF EXISTS t_rule_value;
+DROP TABLE IF EXISTS t_validate_rule_group_control_type;
 
 CREATE TABLE t_control(
   id BIGINT AUTO_INCREMENT PRIMARY KEY ,
@@ -62,6 +63,12 @@ CREATE TABLE t_validate_rule_group(
   id BIGINT AUTO_INCREMENT PRIMARY KEY ,
   group_name VARCHAR(100) NOT NULL,
   group_label VARCHAR(100)
+);
+
+CREATE TABLE t_validate_rule_group_control_type(
+  validate_rule_group_id BIGINT NOT NULL ,
+  control_type VARCHAR(50) NOT NULL ,
+  PRIMARY KEY (validate_rule_group_id,control_type)
 );
 
 CREATE TABLE t_validate_rule_group_rule(

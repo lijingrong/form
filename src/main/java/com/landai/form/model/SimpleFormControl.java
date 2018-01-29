@@ -15,7 +15,7 @@ import java.util.Map;
 @Data
 @Entity
 @Table(name = "t_control")
-@ToString(exclude = {"formList", "validateRuleGroup"})
+@ToString(exclude = {"formList", "validateRuleGroup","ruleGroups"})
 public class SimpleFormControl implements Serializable {
 
     @Id
@@ -37,11 +37,17 @@ public class SimpleFormControl implements Serializable {
     private List<Form> formList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "rule_group_id", updatable = false)
+    @JoinColumn(name = "rule_group_id")
     private ValidateRuleGroup validateRuleGroup;
 
     @Transient
     private List<RuleValue> ruleValues;
+
+    @ManyToMany
+    @JoinTable(name = "t_validate_rule_group_control_type",
+            joinColumns = @JoinColumn(name = "control_type", referencedColumnName = "type"),
+            inverseJoinColumns = @JoinColumn(name = "validate_rule_group_id", referencedColumnName = "id"))
+    private List<ValidateRuleGroup> ruleGroups;
 
     public String getRules() {
         if (ruleValues == null) return "";

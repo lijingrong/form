@@ -42,6 +42,10 @@ INSERT INTO t_validate_rule_group(id, group_name, group_label) VALUES
 (9,'checkbox','多选'),
 (10,'select','下拉');
 
+INSERT INTO t_validate_rule_group_control_type(validate_rule_group_id, control_type) VALUES
+(1,'text'),(2,'text'),(3,'text'),(4,'text'),(5,'text'),(5,'textarea'),(6,'text'),(7,'text'),(8,'radio'),(9,'checkbox'),
+(10,'select');
+
 INSERT INTO t_validate_rule_group_rule(rule_id, rule_group_id) VALUES
 (1,1),(1,2),(1,3),(4,3),(5,3),(1,4),(2,4),(3,4),(1,5),(2,5),
 (3,5),(1,6),(1,7),(1,8),(1,9),(1,10);

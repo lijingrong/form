@@ -5,6 +5,9 @@ import com.landai.form.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ControlService {
 
@@ -18,19 +21,26 @@ public class ControlService {
     ControlDataRepository controlDataRepository;
     @Autowired
     RuleValueRepository ruleValueRepository;
+    @Autowired
+    RuleGroupRepository ruleGroupRepository;
 
 
     public SimpleFormControl getCommonControlByName(String name) {
         return formControlRepository.getSimpleFormControlByName(name);
     }
 
-    public void save(SimpleFormControl formControl) {
-        formControlRepository.save(formControl);
+    public SimpleFormControl save(SimpleFormControl formControl) {
+        return formControlRepository.save(formControl);
     }
 
     public SimpleFormControl getControlById(String formId, Long id) {
         SimpleFormControl control = formControlRepository.findOne(id);
         control.setRuleValues(ruleValueRepository.getRuleValuesByFormIdAndControlId(formId, id));
+        List<ValidateRuleGroup> ruleGroups = control.getRuleGroups();
+        if (ruleGroups != null && ruleGroups.size() == 1) {
+            control.setValidateRuleGroup(ruleGroups.get(0));
+            formControlRepository.save(control);
+        }
         return control;
     }
 
@@ -58,4 +68,9 @@ public class ControlService {
     public void saveControlData(NameValuePair nameValuePair) {
         controlDataRepository.save(nameValuePair);
     }
+
+    public ValidateRuleGroup getRuleGroup(Long ruleGroupId) {
+        return ruleGroupRepository.getOne(ruleGroupId);
+    }
+
 }

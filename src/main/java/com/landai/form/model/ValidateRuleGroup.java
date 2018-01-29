@@ -17,6 +17,8 @@ public class ValidateRuleGroup {
 
     private String groupName;
 
+    private String groupLabel;
+
     @ManyToMany
     @JoinTable(name = "t_validate_rule_group_rule",
             joinColumns = @JoinColumn(name = "rule_group_id", referencedColumnName = "id"),

@@ -21,12 +21,23 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <label for="control_label">名称：</label><input id="control_label" type="text" class="form-control"
                                                              value="${control.label}">
+                <div>
+                    <#if control.ruleGroups??>
+                        <label for="control_type">类型：</label>
+                        <select id="control_type" name="control_type" class="form-control">
+                            <#list control.ruleGroups as ruleGroup>
+                                <option value="${ruleGroup.id}" <#if control.validateRuleGroup??&&control.validateRuleGroup.id==ruleGroup.id>selected="selected"</#if>>${ruleGroup.groupLabel}</option>
+                            </#list>
+                        </select>
+                    </#if>
+                </div>
             </div>
         </#if>
     <div class="tab-pane fade <#if control.common>show active</#if>" id="controlRule" role="tabpanel"
          aria-labelledby="profile-tab">
-        <#list control.validateRuleGroup.validateRules as rule>
-            <#if rule.type =='checkbox'>
+        <#if control.validateRuleGroup??>
+            <#list control.validateRuleGroup.validateRules as rule>
+                <#if rule.type =='checkbox'>
                 <div class="form-group row">
                     <div class="col">${rule.label}:</div>
                     <div class="col">
@@ -35,7 +46,7 @@
                             <#if control.ruleValues??>
                                 <#list control.ruleValues as ruleValue>
                                     <#if ruleValue.validateRule.id == rule.id> ruleValueId="${ruleValue.id}"</#if>
-                                    <#if ruleValue.validateRule.id == rule.id&&ruleValue.ruleValue=='1'>checked="checked"</#if>
+                                   <#if ruleValue.validateRule.id == rule.id&&ruleValue.ruleValue=='1'>checked="checked"</#if>
                                 </#list>
                             </#if>
                             >
@@ -43,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-            <#elseif rule.type =='text'>
+                <#elseif rule.type =='text'>
                 <div class="form-group row">
                     <label  class="col col-form-label">${rule.label}:</label>
                     <div class="col">
@@ -56,9 +67,9 @@
                         >
                     </div>
                 </div>
-            </#if>
-        </#list>
-    </div>
+                </#if>
+            </#list>
+        </#if>
     </div>
          <#if !control.common>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -123,16 +134,27 @@
                 });
             }
         });
-        $('#control_require').click(function () {
-            console.log($(this).is(':checked'));
+
+        $('#control_type').change(function () {
+            var value = $(this).children('option:selected').val();
             $.ajax({
-                method: 'post',
-                url: '/form/' + formId + '/controlValidate/' + controlId,
-                data: {required: $(this).is(':checked')}
-            }).done(function (status) {
-                refreshForm();
-            })
+                method:'post',
+                url:'/form/'+formId+'/controlAttribute/'+controlId,
+                data:{ruleGroupId:value}
+            }).done(function () {
+                refreshTab();
+            });
         });
+
+        function refreshTab() {
+            $.ajax({
+                method: 'get',
+                url: '/form/' + formId + '/controlAttribute/' + controlId
+            }).done(function (html) {
+                $("#attributeArea").empty().append(html);
+            })
+        }
+
         $("#control_label").blur(function () {
             var $this = $(this);
             $.ajax({
@@ -143,6 +165,7 @@
                 refreshForm();
             })
         });
+
 
         function refreshForm() {
             $.ajax({

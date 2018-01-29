@@ -50,7 +50,7 @@ public class FormController {
         control.setCommon(false);
         control.setLabel("自定义");
         form.getControlList().add(control);
-        controlService.save(control);
+        control = controlService.save(control);
         formService.saveForm(form);
         return renderControlService.getRenderHtml(control.getViewName(), control);
     }
@@ -125,9 +125,14 @@ public class FormController {
     @ResponseBody
     public Status saveControlAttribute(@PathVariable("formId") String formId,
                                        @PathVariable("controlId") Long controlId,
-                                       @RequestParam("label") String label) {
+                                       @RequestParam(value = "label", required = false) String label,
+                                       @RequestParam(value = "ruleGroupId", required = false) Long ruleGroupId) {
         SimpleFormControl control = controlService.getControlById(formId, controlId);
-        control.setLabel(label);
+        if (StringUtils.isNotEmpty(label))
+            control.setLabel(label);
+        if (ruleGroupId != null) {
+            control.setValidateRuleGroup(controlService.getRuleGroup(ruleGroupId));
+        }
         controlService.save(control);
         return Status.SUCCESS;
     }
