@@ -1,5 +1,5 @@
-<div id="control_area_${id}" class="form-group row">
-    <div class="col-3">${label}:
+<div id="control_area_${id}" class="form-group control-area">
+    <div>${label}:
     <#if validateRuleGroup??>
         <#list validateRuleGroup.validateRules as rule>
             <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
@@ -7,22 +7,18 @@
             </#if>
         </#list>
     </#if>
+        <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
     </div>
-    <div class="col-7">
-        <#list data as d>
+    <#list data as d>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="${name}" value="${d.value}">
                 <label class="form-check-label">
                     ${d.name}
                 </label>
             </div>
-        </#list>
-        <div>
-            <label for="${name}" class="error"></label>
-        </div>
-    </div>
-    <div class="col-2">
-        <div><span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span></div>
+    </#list>
+    <div>
+        <label for="${name}" class="error"></label>
     </div>
 </div>
 <script type="text/javascript">

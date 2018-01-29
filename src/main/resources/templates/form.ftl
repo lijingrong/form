@@ -19,6 +19,7 @@
         .form-area{
             max-width: 800px;
             margin: 5px auto;
+            padding: 5px 10px;
         }
         .error{
             color:red;

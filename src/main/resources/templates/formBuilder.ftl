@@ -16,14 +16,17 @@
             left: 400px;
             top: 50px;
             width: 600px;
-            height: 700px;
+            min-height: 700px;
             padding: 15px;
+            background-image: url("/static/imgs/2px.png");
         }
 
         .control {
             background: #ccc;
         }
+        .control-area{
 
+        }
         #attributeArea {
             position: absolute;
             right: 10px;
@@ -39,7 +42,8 @@
             color: red;
         }
         .selected{
-            background-color: #cccccc;
+            border:1px dashed #cccccc;
+            padding: 3px 3px;
         }
         .mouse_over{
             border:1px dashed #cccccc;
@@ -57,34 +61,43 @@
     <script src="/static/script/messages_zh.js"></script>
 </head>
 <body>
-<div id="formArea" class="ui-widget-content"></div>
+<div id="formArea"></div>
 
 <div id="controlArea">
-    <div>
-        <div>常用控件</div>
-    </div>
-    <div>
-        <ul class="list-group">
-            <li class="list-group-item control" controlName="name" common="true">姓名</li>
-            <li class="list-group-item control" controlName="gender" common="true">性别</li>
-            <li class="list-group-item control" controlName="telephone" common="true">手机号</li>
-            <li class="list-group-item control" controlName="email" common="true">邮箱</li>
-            <li class="list-group-item control" controlName="idCard" common="true">身份证</li>
-            <li class="list-group-item control" controlName="education" common="true">学历</li>
-            <li class="list-group-item control" controlName="hobby" common="true">兴趣</li>
-            <li class="list-group-item control" controlName="description" common="true">简介</li>
-            <li class="list-group-item control" controlName="url" common="true">网址</li>
-        </ul>
-    </div>
-    <div>
-        <div>自定义控件</div>
-        <ul class="list-group">
-            <li class="list-group-item control" controlType="text" common="false"><span>文本</span></li>
-            <li class="list-group-item control" controlType="select" common="false"><span>下拉</span></li>
-            <li class="list-group-item control" controlType="radio" common="false"><span>单选</span></li>
-            <li class="list-group-item control" controlType="checkbox" common="false"><span>多选</span></li>
-            <li class="list-group-item control" controlType="textarea" common="false"><span>多行文本</span></li>
-        </ul>
+
+    <ul class="nav nav-tabs" id="controlAreaTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="common-tab" data-toggle="tab" href="#commonControl" role="tab" aria-controls="home"
+               aria-selected="true">常用控件</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="custom-tab" data-toggle="tab" href="#customControl"
+               role="tab" aria-controls="profile" aria-selected="false">自定义控件</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="controlAreaTabContent">
+        <div class="tab-pane fade show active" id="commonControl" role="tabpanel" aria-labelledby="home-tab">
+            <ul class="list-group">
+                <li class="list-group-item control" controlName="name" common="true">姓名</li>
+                <li class="list-group-item control" controlName="gender" common="true">性别</li>
+                <li class="list-group-item control" controlName="telephone" common="true">手机号</li>
+                <li class="list-group-item control" controlName="email" common="true">邮箱</li>
+                <li class="list-group-item control" controlName="idCard" common="true">身份证</li>
+                <li class="list-group-item control" controlName="education" common="true">学历</li>
+                <li class="list-group-item control" controlName="hobby" common="true">兴趣</li>
+                <li class="list-group-item control" controlName="description" common="true">简介</li>
+                <li class="list-group-item control" controlName="url" common="true">网址</li>
+            </ul>
+        </div>
+        <div class="tab-pane fade" id="customControl" role="tabpanel" aria-labelledby="home-tab">
+            <ul class="list-group">
+                <li class="list-group-item control" controlType="text" common="false"><span>文本</span></li>
+                <li class="list-group-item control" controlType="select" common="false"><span>下拉</span></li>
+                <li class="list-group-item control" controlType="radio" common="false"><span>单选</span></li>
+                <li class="list-group-item control" controlType="checkbox" common="false"><span>多选</span></li>
+                <li class="list-group-item control" controlType="textarea" common="false"><span>多行文本</span></li>
+            </ul>
+        </div>
     </div>
 </div>
 <div id="attributeArea"></div>
