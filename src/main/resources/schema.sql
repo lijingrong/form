@@ -84,3 +84,4 @@ CREATE TABLE t_rule_value(
   control_id BIGINT NOT NULL ,
   form_id VARCHAR(50) NOT NULL
 );
+
