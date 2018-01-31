@@ -12,23 +12,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
     <script src="/static/script/messages_zh.js"></script>
+    <script src="/static/script/jquery.form.min.js"></script>
     <style>
-        .required{
+        .required {
             color: red;
         }
-        .form-area{
+
+        .form-area {
             max-width: 800px;
             margin: 5px auto;
             padding: 5px 10px;
         }
-        .error{
-            color:red;
+
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body>
 <div class="form-area">
-    <form id="form">
+    <form id="form" method="post">
     <#list controls as control >
         <div>${control.html}</div>
     </#list>
@@ -43,7 +46,37 @@
 </div>
 
 <script>
-    $("#form").validate();
+    (function ($) {
+        $.fn.serializeFormJSON = function () {
+
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    })(jQuery);
+
+    $("#form").validate({
+        submitHandler: function(form) {
+            var data = $(form).serializeFormJSON();
+            $.ajax({
+               method:'post',
+               url:window.location.pathname,
+               data:{formValue:JSON.stringify(data)}
+            }).done(function (status) {
+                window.location.href=status.redirectUrl;
+            });
+        }
+    });
 </script>
 </body>
 </html>

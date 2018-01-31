@@ -1,45 +1,35 @@
-<div id="control_area_${id}" class="form-row control-area">
-    <div class="form-group col">
-        <label>省:
-        <#if validateRuleGroup??>
-            <#list validateRuleGroup.validateRules as rule>
-                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
+<div id="control_area_${id}" class="form-group control-area">
+    <label>${label}:
+    <#if validateRuleGroup??>
+        <#list validateRuleGroup.validateRules as rule>
+            <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
                     <span class="required">*</span>
-                </#if>
-            </#list>
-        </#if>
-        </label>
-        <select id="province_${id}" name="province" class="form-control">
-            <option value="">请选择省</option>
-        </select>
+            </#if>
+        </#list>
+    </#if>
+        <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
+    </label>
+    <div class="row">
+        <div class="col">
+            <select id="province_${id}" name="province" class="form-control">
+                <option value="">请选择省</option>
+            </select>
+        </div>
+        <div class="col">
+            <select id="city_${id}" name="city" class="form-control">
+                <option value="">请选择市</option>
+            </select>
+        </div>
+        <div class="col">
+            <select id="area_${id}" name="area" class="form-control">
+                <option value="">请选择区</option>
+            </select>
+        </div>
     </div>
-    <div class="form-group col">
-        <label>市:
-        <#if validateRuleGroup??>
-            <#list validateRuleGroup.validateRules as rule>
-                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
-                    <span class="required">*</span>
-                </#if>
-            </#list>
-        </#if>
-        </label>
-        <select id="city_${id}" name="city" class="form-control">
-            <option value="">请选择市</option>
-        </select>
-    </div>
-    <div class="form-group col">
-        <label>区:
-        <#if validateRuleGroup??>
-            <#list validateRuleGroup.validateRules as rule>
-                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
-                    <span class="required">*</span>
-                </#if>
-            </#list>
-        </#if>
-        </label>
-        <select id="area_${id}" name="area" class="form-control">
-            <option value="">请选择区</option>
-        </select>
+    <div class="row" style="margin-top: 5px">
+        <div class="col-12">
+            <input type="text" name="address" class="form-control" placeholder="请输入详细地址">
+        </div>
     </div>
 </div>
 <script type="text/javascript">

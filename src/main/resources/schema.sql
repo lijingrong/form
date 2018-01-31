@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS t_validate_rule_group;
 DROP TABLE IF EXISTS t_validate_rule_group_rule;
 DROP TABLE IF EXISTS t_rule_value;
 DROP TABLE IF EXISTS t_validate_rule_group_control_type;
+DROP TABLE IF EXISTS t_form_value;
 
 CREATE TABLE t_control(
   id BIGINT AUTO_INCREMENT PRIMARY KEY ,
@@ -84,3 +85,9 @@ CREATE TABLE t_rule_value(
   control_id BIGINT NOT NULL ,
   form_id VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE t_form_value(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+  form_id VARCHAR(10),
+  form_value TEXT
+)

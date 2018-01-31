@@ -160,4 +160,23 @@ public class FormController {
         formService.saveForm(form);
         return "redirect:/builder/" + form.getId();
     }
+
+    @PostMapping("/f/{formId}")
+    @ResponseBody
+    public Map<String, String> formSubmit(@PathVariable("formId") String formId,
+                                          @RequestParam("formValue") String formValue) {
+        Form form = formService.getForm(formId);
+        FormValue fv = new FormValue();
+        fv.setForm(form);
+        fv.setFormValue(formValue);
+        formService.saveFormValue(fv);
+        Map<String, String> status = new HashMap<>();
+        status.put("redirectUrl", "/f/submitSuccess");
+        return status;
+    }
+
+    @GetMapping("/f/submitSuccess")
+    public String submitSuccess() {
+        return "submitSuccess";
+    }
 }

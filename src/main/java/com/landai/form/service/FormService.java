@@ -1,6 +1,7 @@
 package com.landai.form.service;
 
 import com.landai.form.model.*;
+import com.landai.form.repository.FormValueRepository;
 import com.landai.form.repository.ValidateRuleRepository;
 import com.landai.form.repository.FormRepository;
 import com.landai.form.repository.RuleValueRepository;
@@ -20,6 +21,8 @@ public class FormService {
     ValidateRuleRepository validateRepository;
     @Autowired
     RuleValueRepository ruleValueRepository;
+    @Autowired
+    FormValueRepository formValueRepository;
 
     public List<SimpleFormControl> getFormControls(final String formId) {
         Form form = getForm(formId);
@@ -44,5 +47,9 @@ public class FormService {
 
     public void saveForm(Form form) {
         formRepository.save(form);
+    }
+
+    public void saveFormValue(FormValue formValue) {
+        formValueRepository.save(formValue);
     }
 }

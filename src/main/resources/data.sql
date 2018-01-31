@@ -9,7 +9,7 @@ INSERT INTO t_control(id, name, type, label, view_name,is_common,rule_group_id) 
 (7,'hobby',NULL ,'兴趣','checkbox.ftl',TRUE,9),
 (8,'email','email','邮箱','text.ftl',TRUE,1),
 (9,'url','url','网址','text.ftl',TRUE,2),
-(10,'compositeAddress','compositeAddress','省市区','compositeAddress.ftl',TRUE,11);
+(10,'compositeAddress','compositeAddress','地址','compositeAddress.ftl',TRUE,11);
 
 INSERT INTO t_control_data(control_id, name, value) VALUES
 (2,'男','0'),
@@ -43,7 +43,7 @@ INSERT INTO t_validate_rule_group(id, group_name, group_label) VALUES
 (8,'radio','单选'),
 (9,'checkbox','多选'),
 (10,'select','下拉'),
-(11,'compositeAddress','省市区');
+(11,'compositeAddress','地址');
 
 INSERT INTO t_validate_rule_group_control_type(validate_rule_group_id, control_type) VALUES
 (1,'text'),(2,'text'),(3,'text'),(4,'text'),(5,'text'),(5,'textarea'),(6,'text'),(7,'text'),(8,'radio'),(9,'checkbox'),
