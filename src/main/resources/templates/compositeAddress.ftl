@@ -1,0 +1,91 @@
+<div id="control_area_${id}" class="form-row control-area">
+    <div class="form-group col">
+        <label>省:
+        <#if validateRuleGroup??>
+            <#list validateRuleGroup.validateRules as rule>
+                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
+                    <span class="required">*</span>
+                </#if>
+            </#list>
+        </#if>
+        </label>
+        <select id="province_${id}" name="province" class="form-control">
+            <option value="">请选择省</option>
+        </select>
+    </div>
+    <div class="form-group col">
+        <label>市:
+        <#if validateRuleGroup??>
+            <#list validateRuleGroup.validateRules as rule>
+                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
+                    <span class="required">*</span>
+                </#if>
+            </#list>
+        </#if>
+        </label>
+        <select id="city_${id}" name="city" class="form-control">
+            <option value="">请选择市</option>
+        </select>
+    </div>
+    <div class="form-group col">
+        <label>区:
+        <#if validateRuleGroup??>
+            <#list validateRuleGroup.validateRules as rule>
+                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
+                    <span class="required">*</span>
+                </#if>
+            </#list>
+        </#if>
+        </label>
+        <select id="area_${id}" name="area" class="form-control">
+            <option value="">请选择区</option>
+        </select>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            method:'get',
+            url:'/static/script/region.json'
+        }).done(function (data) {
+            var $province = $('#province_${id}'),$city = $('#city_${id}'),
+                    $area=$('#area_${id}'),provinceData={};
+            $.each(data,function (name,value) {
+                $province.append("<option value='"+value.name+"'>"+value.name+"</option>");
+            });
+            $province.change(function () {
+                var $this = $(this);
+                $.each(data,function (name,value) {
+                    if(value.name===$this.val()){
+                        provinceData = value;
+                        $city.empty();
+                        $city.append("<option value=''>请选择市</option>");
+                        $.each(value.city,function (name,value) {
+                            $city.append("<option value='"+value.name+"'>"+value.name+"</option>");
+                        });
+                    }
+                });
+            });
+            $city.change(function () {
+                var $this = $(this);
+                $.each(provinceData.city,function (name,value) {
+                    if(value.name===$this.val()){
+                        $area.empty().append("<option value=''>请选择区</option>");
+                        $.each(value.area,function (name,value) {
+                            $area.append("<option value='"+value+"'>"+value+"</option>");
+                        })
+                    }
+                })
+            })
+        });
+
+        var rules ={};
+        <#if rules??&&rules!=''>
+            rules = ${rules};
+        </#if>
+        console.log(rules);
+        $("#province_${id}").rules("add", rules);
+        $("#city_${id}").rules("add", rules);
+        $("#area_${id}").rules("add", rules);
+    });
+</script>

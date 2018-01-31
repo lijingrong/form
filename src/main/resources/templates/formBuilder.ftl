@@ -87,6 +87,7 @@
                 <li class="list-group-item control" controlName="hobby" common="true">兴趣</li>
                 <li class="list-group-item control" controlName="description" common="true">简介</li>
                 <li class="list-group-item control" controlName="url" common="true">网址</li>
+                <li class="list-group-item control" controlName="compositeAddress" common="true">省市区</li>
             </ul>
         </div>
         <div class="tab-pane fade" id="customControl" role="tabpanel" aria-labelledby="home-tab">
@@ -142,8 +143,8 @@
     });
 
     function initForm() {
-        $("#formArea .form-group").unbind();
-        $("#formArea .form-group").mouseover(function () {
+        $("#formArea .control-area").unbind();
+        $("#formArea .control-area").mouseover(function () {
             var $this = $(this);
             if(!$this.hasClass("selected")){
                 $this.addClass("mouse_over");
@@ -159,11 +160,11 @@
                 event.stopPropagation();
             }).show();
         });
-        $("#formArea .form-group").mouseout(function () {
+        $("#formArea .control-area").mouseout(function () {
             $(this).removeClass("mouse_over");
             $(this).find('.delete').unbind().hide();
         });
-        $("#formArea .form-group").bind("click", function () {
+        $("#formArea .control-area").bind("click", function () {
             $("#formArea div.selected").removeClass("selected");
             var $this = $(this);
             $this.addClass("selected");

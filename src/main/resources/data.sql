@@ -8,20 +8,22 @@ INSERT INTO t_control(id, name, type, label, view_name,is_common,rule_group_id) 
 (6,'description','textarea','简介','textarea.ftl',TRUE,5),
 (7,'hobby',NULL ,'兴趣','checkbox.ftl',TRUE,9),
 (8,'email','email','邮箱','text.ftl',TRUE,1),
-(9,'url','url','网址','text.ftl',TRUE,2);
-INSERT INTO t_control_data(id, control_id, name, value) VALUES
-(1,2,'男','0'),
-(2,2,'女','1'),
-(3,5,'博士','0'),
-(4,5,'研究生','1'),
-(5,5,'本科','2'),
-(6,5,'专科','3'),
-(7,5,'高中','4'),
-(8,7,'足球','0'),
-(9,7,'篮球','1'),
-(10,7,'乒乓球','2'),
-(11,7,'滑雪','3'),
-(12,7,'垂钓','4');
+(9,'url','url','网址','text.ftl',TRUE,2),
+(10,'compositeAddress','compositeAddress','省市区','compositeAddress.ftl',TRUE,11);
+
+INSERT INTO t_control_data(control_id, name, value) VALUES
+(2,'男','0'),
+(2,'女','1'),
+(5,'博士','0'),
+(5,'研究生','1'),
+(5,'本科','2'),
+(5,'专科','3'),
+(5,'高中','4'),
+(7,'足球','0'),
+(7,'篮球','1'),
+(7,'乒乓球','2'),
+(7,'滑雪','3'),
+(7,'垂钓','4');
 
 INSERT INTO t_validate_rule(id, name,label,type) VALUES
 (1,'required','必填','checkbox'),
@@ -40,14 +42,16 @@ INSERT INTO t_validate_rule_group(id, group_name, group_label) VALUES
 (7,'telephone','手机'),
 (8,'radio','单选'),
 (9,'checkbox','多选'),
-(10,'select','下拉');
+(10,'select','下拉'),
+(11,'compositeAddress','省市区');
 
 INSERT INTO t_validate_rule_group_control_type(validate_rule_group_id, control_type) VALUES
 (1,'text'),(2,'text'),(3,'text'),(4,'text'),(5,'text'),(5,'textarea'),(6,'text'),(7,'text'),(8,'radio'),(9,'checkbox'),
-(10,'select');
+(10,'select'),(11,'compositeAddress');
 
 INSERT INTO t_validate_rule_group_rule(rule_id, rule_group_id) VALUES
 (1,1),(1,2),(1,3),(4,3),(5,3),(1,4),(2,4),(3,4),(1,5),(2,5),
-(3,5),(1,6),(1,7),(1,8),(1,9),(1,10);
+(3,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11);
 
 INSERT INTO t_form(id, title, description) VALUES (1,'第一个表单','坚持就是胜利');
+
