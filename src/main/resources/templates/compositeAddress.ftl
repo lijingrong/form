@@ -48,8 +48,8 @@
                 $.each(data,function (name,value) {
                     if(value.name===$this.val()){
                         provinceData = value;
-                        $city.empty();
-                        $city.append("<option value=''>请选择市</option>");
+                        $city.empty().append("<option value=''>请选择市</option>");
+                        $area.empty().append("<option value=''>请选择区</option>");
                         $.each(value.city,function (name,value) {
                             $city.append("<option value='"+value.name+"'>"+value.name+"</option>");
                         });
