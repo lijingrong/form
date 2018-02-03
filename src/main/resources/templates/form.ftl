@@ -32,8 +32,8 @@
 <body>
 <div class="form-area">
     <form id="form" method="post">
-    <#list controls as control >
-        <div>${control.html}</div>
+    <#list components as component >
+        <div>${component.html}</div>
     </#list>
         <div class="form-group row">
             <div class="col-3"></div>

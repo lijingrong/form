@@ -35,7 +35,7 @@
             height: 700px;
         }
 
-        .delete {
+        .delete,.deleteData {
             cursor: pointer;
         }
         .required{
@@ -78,25 +78,20 @@
     <div class="tab-content" id="controlAreaTabContent">
         <div class="tab-pane fade show active" id="commonControl" role="tabpanel" aria-labelledby="home-tab">
             <ul class="list-group">
-                <li class="list-group-item control" controlName="name" common="true">姓名</li>
-                <li class="list-group-item control" controlName="gender" common="true">性别</li>
-                <li class="list-group-item control" controlName="telephone" common="true">手机号</li>
-                <li class="list-group-item control" controlName="email" common="true">邮箱</li>
-                <li class="list-group-item control" controlName="idCard" common="true">身份证</li>
-                <li class="list-group-item control" controlName="education" common="true">学历</li>
-                <li class="list-group-item control" controlName="hobby" common="true">兴趣</li>
-                <li class="list-group-item control" controlName="description" common="true">简介</li>
-                <li class="list-group-item control" controlName="url" common="true">网址</li>
-                <li class="list-group-item control" controlName="compositeAddress" common="true">省市区</li>
+                <#list components as component>
+                    <#if component.isCommon>
+                        <li class="list-group-item control" componentName="${component.name}" common="true">${component.label}</li>
+                    </#if>
+                </#list>
             </ul>
         </div>
         <div class="tab-pane fade" id="customControl" role="tabpanel" aria-labelledby="home-tab">
             <ul class="list-group">
-                <li class="list-group-item control" controlType="text" common="false"><span>文本</span></li>
-                <li class="list-group-item control" controlType="select" common="false"><span>下拉</span></li>
-                <li class="list-group-item control" controlType="radio" common="false"><span>单选</span></li>
-                <li class="list-group-item control" controlType="checkbox" common="false"><span>多选</span></li>
-                <li class="list-group-item control" controlType="textarea" common="false"><span>多行文本</span></li>
+                <#list components as component>
+                    <#if !component.isCommon>
+                        <li class="list-group-item control" componentName="${component.name}" common="true">${component.label}</li>
+                    </#if>
+                </#list>
             </ul>
         </div>
     </div>
@@ -108,27 +103,14 @@
     $("#formArea").droppable({
         drop: function (event, ui) {
             var $this = $(this);
-            if (ui.helper.attr("common") === 'true') {
-                $.ajax({
-                    method: "get",
-                    url: "/form/" + formId + "/getControl",
-                    data: {name: ui.helper.attr("controlName")}
-                }).done(function (html) {
-                    console.log(html);
-                    $this.append(html);
-                    initForm();
-                });
-            } else {
-                $.ajax({
-                    method: "get",
-                    url: "/form/" + formId + "/getControl",
-                    data: {type: ui.helper.attr("controlType")}
-                }).done(function (html) {
-                    $this.append(html);
-                    initForm();
-                });
-            }
-
+            $.ajax({
+                method: "get",
+                url: "/form/" + formId + "/getComponent",
+                data: {componentName: ui.helper.attr("componentName")}
+            }).done(function (html) {
+                $this.append(html);
+                initForm();
+            });
         }
     });
     $(document).ready(function () {
@@ -152,8 +134,8 @@
             $this.find('.delete').bind("click", function (event) {
                 $.ajax({
                     method: 'post',
-                    url: '/form/' + formId + '/deleteControl',
-                    data: {controlId: $this.attr('id').split('_')[2]}
+                    url: '/form/' + formId + '/deleteComponent',
+                    data: {componentId: $this.attr('id').split('_')[2]}
                 }).done(function () {
                     $this.remove();
                 });
@@ -170,9 +152,8 @@
             $this.addClass("selected");
             $.ajax({
                 method: 'get',
-                url: '/form/' + formId + '/controlAttribute/' + $this.attr('id').split('_')[2]
+                url: '/form/' + formId + '/componentEdit/' + $this.attr('id').split('_')[2]
             }).done(function (html) {
-
                 $("#attributeArea").empty().append(html);
             })
         });

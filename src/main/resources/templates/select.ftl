@@ -1,26 +1,26 @@
 <div id="control_area_${id}" class="form-group control-area">
-    <label>${label}:
-        <#if validateRuleGroup??>
-            <#list validateRuleGroup.validateRules as rule>
-                <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
-                    <span class="required">*</span>
-                </#if>
-            </#list>
-        </#if>
+    <label>
+        <span class="label">${label}:</span>
         <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
     </label>
-    <select class="form-control" id="control_${id}" name="${name}">
-            <#list data as d>
-                <option value="${d.value}">${d.name}</option>
-            </#list>
-    </select>
+    <select class="form-control" id="control_${id}" name="${name}"></select>
+    <small class="form-text text-muted">${description!""}</small>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        var rules ={};
-        <#if rules??&&rules!=''>
-            rules = ${rules};
+        var rules_${id} ={},data_${id}=[];
+        <#if validateRules??&&validateRules!=''>
+            rules_${id} = ${validateRules};
         </#if>
-        $("#control_${id}").rules("add",rules);
+        <#if data??&&data!=''>
+            data_${id}=${data};
+            $.each(data_${id},function (i,v) {
+                $('#control_${id}').append('<option value="'+v+'">'+v+'</option>');
+            });
+        </#if>
+        if(rules_${id}.required){
+            $('#control_area_${id} span.label').append('<span class="required">*</span>')
+        }
+        $("#control_" +${id}).rules("add", rules_${id});
     });
 </script>

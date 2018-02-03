@@ -1,9 +1,8 @@
 package com.landai.form.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landai.form.model.*;
-import com.landai.form.service.ControlService;
-import com.landai.form.service.FormService;
-import com.landai.form.service.RenderControlService;
+import com.landai.form.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,129 +22,134 @@ public class FormController {
     @Autowired
     FormService formService;
     @Autowired
-    ControlService controlService;
-    @Autowired
     RenderControlService renderControlService;
+    @Autowired
+    ComponentPrototypeService componentPrototypeService;
+    @Autowired
+    ComponentService componentService;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/f/{formId}")
     public String formIndex(@PathVariable("formId") String formId, Model model) {
-        model.addAttribute("controls", formService.getFormControls(formId));
+        model.addAttribute("components", componentService.getComponents(formId));
         return "form";
     }
 
-    @GetMapping("/form/{formId}/getControl")
+    @GetMapping("/form/{formId}/getComponent")
     @ResponseBody
     public String buildControl(@PathVariable("formId") String formId,
-                               @RequestParam(value = "type", required = false) String type,
-                               @RequestParam(value = "name", required = false) String name) {
+                               @RequestParam("componentName") String componentName) {
         Form form = formService.getForm(formId);
-        if (!StringUtils.isEmpty(name)) {
-            SimpleFormControl control = controlService.getCommonControlByName(name);
-            form.getControlList().add(control);
-            formService.saveForm(form);
-            return renderControlService.getRenderHtml(control.getViewName(), control);
-        }
-        SimpleFormControl control = new SimpleFormControl();
-        control.setType(type);
-        control.setName(RandomStringUtils.randomAlphabetic(6));
-        control.setViewName(type + ".ftl");
-        control.setCommon(false);
-        control.setLabel("自定义");
-        form.getControlList().add(control);
-        control = controlService.save(control);
-        formService.saveForm(form);
-        return renderControlService.getRenderHtml(control.getViewName(), control);
+        ComponentPrototype cp = componentPrototypeService.getComponentPrototype(componentName);
+        Component component = new Component();
+        component.setForm(form);
+        component.setLabel(cp.getLabel());
+        component.setName(RandomStringUtils.randomAlphabetic(6));
+        component.setData(cp.getData());
+        component.setValidateRules(cp.getValidateRules());
+        component.setViewPage(cp.getViewPage());
+        component.setEditPage(cp.getEditPage());
+        component.setType(cp.getType());
+        componentService.saveComponent(component);
+        return renderControlService.getRenderHtml(component.getViewPage(), component);
     }
 
-    @PostMapping("/form/{formId}/deleteControl")
+    @PostMapping("/form/{formId}/deleteComponent")
     @ResponseBody
-    public Status deleteControl(@PathVariable("formId") String formId,
-                                @RequestParam("controlId") Long controlId) {
-        controlService.delete(formId, controlId);
+    public Status deleteControl(@RequestParam("componentId") Long componentId) {
+        componentService.deleteComponent(componentId);
         return Status.SUCCESS;
     }
 
     @GetMapping("/builder/{formId}")
-    public String formBuilder(@PathVariable("formId") String formId) {
+    public String formBuilder(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("components", componentPrototypeService.getAllComponentPrototypes());
         return "formBuilder";
     }
 
     @GetMapping("/form/{formId}")
     @ResponseBody
     public String getForm(@PathVariable("formId") String formId) {
-        List<SimpleFormControl> controlList = formService.getFormControls(formId);
+        List<Component> components = componentService.getComponents(formId);
         StringBuilder fragment = new StringBuilder();
-        for (SimpleFormControl control : controlList) {
-            fragment.append(control.getHtml());
+        for (Component component : components) {
+            fragment.append(component.getHtml());
         }
         return fragment.toString();
     }
 
-    @PostMapping("/form/{formId}/addControl")
+    @RequestMapping("/form/{formId}/componentEdit/{componentId}")
     @ResponseBody
-    public Status addControl(@PathVariable("formId") String formId,
-                             @ModelAttribute SimpleFormControl control) {
-        Form form = formService.getForm(formId);
-        form.getControlList().add(control);
-        return Status.SUCCESS;
+    public String componentEdit(@PathVariable("formId") String formId,
+                                @PathVariable("componentId") Long componentId) {
+        Component component = componentService.getComponent(componentId);
+        return renderControlService.getRenderHtml(component.getEditPage(), component);
     }
 
-    @GetMapping("/form/{formId}/controlAttribute/{controlId}")
+    @PostMapping("/form/{formId}/component/{componentId}")
     @ResponseBody
-    public String controlAttribute(@PathVariable("formId") String formId,
-                                   @PathVariable("controlId") Long controlId) {
-        SimpleFormControl control = controlService.getControlById(formId, controlId);
-        Map root = new HashMap();
-        root.put("control", control);
-        return renderControlService.getRenderHtml("controlAttribute.ftl", root);
-    }
-
-    @PostMapping("/form/{formId}/controlValidate/{controlId}")
-    @ResponseBody
-    public Status postControlValidate(@PathVariable("formId") String formId,
-                                      @PathVariable("controlId") Long controlId,
-                                      @RequestParam("ruleId") Long ruleId,
-                                      @RequestParam("ruleValue") String ruleValue,
-                                      @RequestParam(value = "ruleValueId", required = false) Long ruleValueId) {
-        if (ruleValueId != null && StringUtils.isEmpty(ruleValue)) {
-            controlService.deleteRuleValue(ruleValueId);
-            return Status.SUCCESS;
-        }
-        RuleValue rv = new RuleValue();
-        if (ruleValueId != null) {
-            rv.setId(ruleValueId);
-        }
-        rv.setControlId(controlId);
-        rv.setFormId(formId);
-        rv.setRuleValue(ruleValue);
-        rv.setValidateRule(controlService.getValidateRule(ruleId));
-        controlService.saveValidate(rv);
-        return Status.SUCCESS;
-    }
-
-    @PostMapping("/form/{formId}/controlAttribute/{controlId}")
-    @ResponseBody
-    public Status saveControlAttribute(@PathVariable("formId") String formId,
-                                       @PathVariable("controlId") Long controlId,
-                                       @RequestParam(value = "label", required = false) String label,
-                                       @RequestParam(value = "ruleGroupId", required = false) Long ruleGroupId) {
-        SimpleFormControl control = controlService.getControlById(formId, controlId);
+    public Status postComponent(@PathVariable("componentId") Long componentId,
+                                @RequestParam(value = "label", required = false) String label,
+                                @RequestParam(value = "description", required = false) String description) {
+        Component component = componentService.getComponent(componentId);
         if (StringUtils.isNotEmpty(label))
-            control.setLabel(label);
-        if (ruleGroupId != null) {
-            control.setValidateRuleGroup(controlService.getRuleGroup(ruleGroupId));
-        }
-        controlService.save(control);
+            component.setLabel(label);
+        if (description != null)
+            component.setDescription(description);
+        componentService.saveComponent(component);
         return Status.SUCCESS;
     }
 
-    @PostMapping("/form/{formId}/controlData/{controlId}")
+    @PostMapping("/form/{formId}/component/{componentId}/rules")
+    @ResponseBody
+    public Status postRules(@PathVariable("componentId") Long componentId,
+                            @RequestParam("rules") String rules) {
+        Component component = componentService.getComponent(componentId);
+        component.setValidateRules(rules);
+        componentService.saveComponent(component);
+        return Status.SUCCESS;
+    }
+
+    @PostMapping("/form/{formId}/componentData/{componentId}")
     @ResponseBody
     public Status saveControlData(@PathVariable("formId") String formId,
-                                  @PathVariable("controlId") Long controlId,
-                                  @ModelAttribute NameValuePair nameValuePair) {
-        nameValuePair.setControl(controlService.getControlById(formId, controlId));
-        controlService.saveControlData(nameValuePair);
+                                  @PathVariable("componentId") Long componentId,
+                                  @RequestParam("value") String value) {
+        Component component = componentService.getComponent(componentId);
+        String data = component.getData();
+        List<String> dataList = new ArrayList<>();
+        try {
+            if (StringUtils.isEmpty(data)) {
+                dataList.add(value);
+                component.setData(objectMapper.writeValueAsString(dataList));
+            } else {
+                dataList = objectMapper.readValue(data, List.class);
+                dataList.add(value);
+            }
+            component.setData(objectMapper.writeValueAsString(dataList));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        componentService.saveComponent(component);
+        return Status.SUCCESS;
+    }
+
+    @PostMapping("/form/{formId}/delComponentData/{componentId}")
+    @ResponseBody
+    public Status deleteComponentData(@PathVariable("formId") String formId,
+                                      @PathVariable("componentId") Long componentId,
+                                      @RequestParam("value") String value) {
+        Component component = componentService.getComponent(componentId);
+        String data = component.getData();
+        List<String> dataList = new ArrayList<>();
+        try {
+            dataList = objectMapper.readValue(data, List.class);
+            dataList.remove(value);
+            component.setData(objectMapper.writeValueAsString(dataList));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        componentService.saveComponent(component);
         return Status.SUCCESS;
     }
 
