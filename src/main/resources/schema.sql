@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS t_form;
 DROP TABLE IF EXISTS t_form_value;
 DROP TABLE IF EXISTS t_component_prototype;
 DROP TABLE IF EXISTS t_component;
+DROP TABLE IF EXISTS t_form_control;
+DROP TABLE IF EXISTS t_component_control;
 
 CREATE TABLE t_form(
   id VARCHAR(10) PRIMARY KEY ,
@@ -39,4 +41,19 @@ CREATE TABLE t_component(
   description VARCHAR(255),
   form_id VARCHAR(10),
   type VARCHAR(10)
+);
+
+CREATE TABLE t_form_control(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+  form_id VARCHAR(10),
+  component_id BIGINT,
+  label VARCHAR(255),
+  name VARCHAR(10)
+);
+
+CREATE TABLE t_component_control(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+  component_name VARCHAR(50),
+  control_label VARCHAR(255),
+  control_name VARCHAR(50)
 );

@@ -11,24 +11,24 @@
     </label>
     <div class="row">
         <div class="col">
-            <select id="province_${id}" name="province" class="form-control">
+            <select id="province_${id}" name="province${id}" class="form-control">
                 <option value="">请选择省</option>
             </select>
         </div>
         <div class="col">
-            <select id="city_${id}" name="city" class="form-control">
+            <select id="city_${id}" name="city${id}" class="form-control">
                 <option value="">请选择市</option>
             </select>
         </div>
         <div class="col">
-            <select id="area_${id}" name="area" class="form-control">
+            <select id="area_${id}" name="area${id}" class="form-control">
                 <option value="">请选择区</option>
             </select>
         </div>
     </div>
     <div class="row" style="margin-top: 5px">
         <div class="col-12">
-            <input type="text" name="address" class="form-control" placeholder="请输入详细地址">
+            <input type="text" name="address${id}" class="form-control" placeholder="请输入详细地址">
         </div>
     </div>
 </div>

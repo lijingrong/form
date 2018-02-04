@@ -27,6 +27,9 @@ public class FormController {
     ComponentPrototypeService componentPrototypeService;
     @Autowired
     ComponentService componentService;
+    @Autowired
+    ControlService controlService;
+
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/f/{formId}")
@@ -51,6 +54,26 @@ public class FormController {
         component.setEditPage(cp.getEditPage());
         component.setType(cp.getType());
         componentService.saveComponent(component);
+        List<ComponentControl> componentControls = cp.getControls();
+        List<Control> controls = new ArrayList<>();
+        if (componentControls != null && !componentControls.isEmpty()) {
+            for (ComponentControl componentControl : componentControls) {
+                Control control = new Control();
+                control.setComponentId(component.getId());
+                control.setFormId(formId);
+                control.setLabel(componentControl.getControlLabel());
+                control.setName(componentControl.getControlName() + component.getId());
+                controls.add(control);
+            }
+        } else {
+            Control control = new Control();
+            control.setComponentId(component.getId());
+            control.setFormId(formId);
+            control.setLabel(component.getLabel());
+            control.setName(component.getName());
+            controls.add(control);
+        }
+        controlService.save(controls);
         return renderControlService.getRenderHtml(component.getViewPage(), component);
     }
 
