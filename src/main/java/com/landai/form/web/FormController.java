@@ -225,4 +225,9 @@ public class FormController {
         }
         return "formData";
     }
+
+    @GetMapping("/signUp")
+    public String signUp(){
+        return "signUp";
+    }
 }
