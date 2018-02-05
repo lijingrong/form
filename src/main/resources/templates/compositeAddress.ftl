@@ -1,12 +1,6 @@
 <div id="control_area_${id}" class="form-group control-area">
-    <label>${label}:
-    <#if validateRuleGroup??>
-        <#list validateRuleGroup.validateRules as rule>
-            <#if rule.name=='required' && rule.ruleValue??&&rule.ruleValue.ruleValue=='1'>
-                    <span class="required">*</span>
-            </#if>
-        </#list>
-    </#if>
+    <label>
+        <span class="label">${label}:</span>
         <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
     </label>
     <div class="row">
@@ -31,6 +25,7 @@
             <input type="text" name="address${id}" class="form-control" placeholder="请输入详细地址">
         </div>
     </div>
+    <small class="form-text text-muted">${description!""}</small>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -69,13 +64,15 @@
             })
         });
 
-        var rules ={};
-        <#if rules??&&rules!=''>
-            rules = ${rules};
+        var rules_${id} ={};
+        <#if validateRules??&&validateRules!=''>
+            rules_${id} = ${validateRules};
         </#if>
-        console.log(rules);
-        $("#province_${id}").rules("add", rules);
-        $("#city_${id}").rules("add", rules);
-        $("#area_${id}").rules("add", rules);
+        if(rules_${id}.required){
+            $('#control_area_${id} span.label').append('<span class="required">*</span>')
+        }
+        $("#province_${id}").rules("add", rules_${id});
+        $("#city_${id}").rules("add", rules_${id});
+        $("#area_${id}").rules("add", rules_${id});
     });
 </script>

@@ -1,10 +1,13 @@
 package com.landai.form.service;
 
 import com.landai.form.model.Component;
+import com.landai.form.model.Control;
 import com.landai.form.repository.ComponentRepository;
+import com.landai.form.repository.ControlRepository;
 import com.landai.form.repository.FormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +20,15 @@ public class ComponentService {
     private FormRepository formRepository;
     @Autowired
     RenderControlService renderControlService;
+    @Autowired
+    ControlRepository controlRepository;
 
     public void saveComponent(Component component) {
+        Control control = controlRepository.getControlByComponentIdAndName(component.getId(), component.getName());
+        if (control != null) {
+            control.setLabel(component.getLabel());
+            controlRepository.save(control);
+        }
         componentRepository.save(component);
     }
 
@@ -34,7 +44,9 @@ public class ComponentService {
         return components;
     }
 
+    @Transactional
     public void deleteComponent(Long componentId) {
+        controlRepository.deleteControlByComponentId(componentId);
         componentRepository.delete(componentId);
     }
 }

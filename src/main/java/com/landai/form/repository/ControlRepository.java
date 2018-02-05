@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ControlRepository extends JpaRepository<Control, Long> {
+
+    Control getControlByComponentIdAndName(final Long componentId,final String name);
+
+    void deleteControlByComponentId(final Long componentId);
+
 }
