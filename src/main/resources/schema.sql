@@ -11,7 +11,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   username VARCHAR(50) NOT NULL PRIMARY KEY,
   password VARCHAR(50) NOT NULL,
-  enabled  BOOLEAN     NOT NULL
+  enabled  BOOLEAN     NOT NULL,
+  telephone VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE authorities (

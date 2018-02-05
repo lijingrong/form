@@ -13,6 +13,9 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    public static final String DEF_USERS_BY_USERNAME_QUERY = "select username,password,enabled "
+            + "from users " + "where telephone = ?";
+
     @Qualifier("dataSource")
     @Autowired
     private DataSource dataSource;
@@ -28,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(this.dataSource);
+        auth.jdbcAuthentication().usersByUsernameQuery(DEF_USERS_BY_USERNAME_QUERY).dataSource(this.dataSource);
     }
 
 }
