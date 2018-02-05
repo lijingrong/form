@@ -1,5 +1,6 @@
 package com.landai.form.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landai.form.model.*;
 import com.landai.form.service.*;
@@ -207,5 +208,21 @@ public class FormController {
     @GetMapping("/f/submitSuccess")
     public String submitSuccess() {
         return "submitSuccess";
+    }
+
+    @GetMapping("/form/{formId}/data")
+    public String formData(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("controls", controlService.getControlsByFormId(formId));
+        List<FormValue> formValues = formService.getAllFormValue(formId);
+        List<Map> values = new ArrayList<>();
+        try {
+            for (FormValue fv : formValues) {
+                values.add(objectMapper.readValue(fv.getFormValue(), Map.class));
+            }
+            model.addAttribute("data", objectMapper.writeValueAsString(values));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "formData";
     }
 }

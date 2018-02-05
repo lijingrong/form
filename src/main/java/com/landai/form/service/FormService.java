@@ -7,6 +7,8 @@ import com.landai.form.repository.FormValueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FormService {
 
@@ -30,5 +32,9 @@ public class FormService {
 
     public void saveFormValue(FormValue formValue) {
         formValueRepository.save(formValue);
+    }
+
+    public List<FormValue> getAllFormValue(String formId) {
+        return formValueRepository.getFormValuesByForm(formRepository.getOne(formId));
     }
 }

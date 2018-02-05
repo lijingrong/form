@@ -11,8 +11,8 @@
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-    <script src="/static/script/messages_zh.js"></script>
-    <script src="/static/script/jquery.form.min.js"></script>
+    <script src="/static/js/messages_zh.js"></script>
+    <script src="/static/js/jquery.form.min.js"></script>
     <style>
         .required {
             color: red;

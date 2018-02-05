@@ -5,7 +5,19 @@ DROP TABLE IF EXISTS t_component_prototype;
 DROP TABLE IF EXISTS t_component;
 DROP TABLE IF EXISTS t_form_control;
 DROP TABLE IF EXISTS t_component_control;
+DROP TABLE IF EXISTS authorities;
+DROP TABLE IF EXISTS users;
 
+CREATE TABLE users (
+  username VARCHAR(50) NOT NULL PRIMARY KEY,
+  password VARCHAR(50) NOT NULL,
+  enabled  BOOLEAN     NOT NULL
+);
+
+CREATE TABLE authorities (
+  username  VARCHAR(50) NOT NULL,
+  authority VARCHAR(50) NOT NULL
+);
 CREATE TABLE t_form(
   id VARCHAR(10) PRIMARY KEY ,
   title VARCHAR(100),
