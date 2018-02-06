@@ -31,7 +31,7 @@
     $(document).ready(function () {
         $.ajax({
             method:'get',
-            url:'/static/script/region.json'
+            url:'/static/js/region.json'
         }).done(function (data) {
             var $province = $('#province_${id}'),$city = $('#city_${id}'),
                     $area=$('#area_${id}'),provinceData={};

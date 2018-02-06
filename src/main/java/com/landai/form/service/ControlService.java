@@ -20,4 +20,8 @@ public class ControlService {
     public Control getControlByComponentIdAndName(Long componentId, String name) {
         return controlRepository.getControlByComponentIdAndName(componentId, name);
     }
+
+    public List<Control> getControlsByFormId(String formId) {
+        return controlRepository.getControlsByFormId(formId);
+    }
 }

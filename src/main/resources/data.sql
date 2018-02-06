@@ -25,4 +25,6 @@ INSERT INTO t_component_control (component_name, control_label, control_name) VA
 
 INSERT INTO t_form (id, title, description) VALUES (1, '第一个表单', '坚持就是胜利');
 
+insert into users (username, password, enabled,telephone) values ('user', 'user', true,'15951076347');
+insert into authorities (username, authority) values ('user', 'ROLE_ADMIN');
 

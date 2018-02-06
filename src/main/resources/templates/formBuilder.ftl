@@ -18,7 +18,7 @@
             width: 600px;
             min-height: 700px;
             padding: 15px;
-            background-image: url("/static/imgs/2px.png");
+            background-image: url("/static/images/2px.png");
         }
 
         .control {
@@ -58,7 +58,7 @@
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-    <script src="/static/script/messages_zh.js"></script>
+    <script src="/static/js/messages_zh.js"></script>
 </head>
 <body>
 <div id="formArea"></div>
