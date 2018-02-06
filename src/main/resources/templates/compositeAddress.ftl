@@ -26,53 +26,54 @@
         </div>
     </div>
     <small class="form-text text-muted">${description!""}</small>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            method:'get',
-            url:'/static/js/region.json'
-        }).done(function (data) {
-            var $province = $('#province_${id}'),$city = $('#city_${id}'),
-                    $area=$('#area_${id}'),provinceData={};
-            $.each(data,function (name,value) {
-                $province.append("<option value='"+value.name+"'>"+value.name+"</option>");
-            });
-            $province.change(function () {
-                var $this = $(this);
-                $.each(data,function (name,value) {
-                    if(value.name===$this.val()){
-                        provinceData = value;
-                        $city.empty().append("<option value=''>请选择市</option>");
-                        $area.empty().append("<option value=''>请选择区</option>");
-                        $.each(value.city,function (name,value) {
-                            $city.append("<option value='"+value.name+"'>"+value.name+"</option>");
-                        });
-                    }
-                });
-            });
-            $city.change(function () {
-                var $this = $(this);
-                $.each(provinceData.city,function (name,value) {
-                    if(value.name===$this.val()){
-                        $area.empty().append("<option value=''>请选择区</option>");
-                        $.each(value.area,function (name,value) {
-                            $area.append("<option value='"+value+"'>"+value+"</option>");
-                        })
-                    }
-                })
-            })
-        });
 
-        var rules_${id} ={};
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                method: 'get',
+                url: '/static/js/region.json'
+            }).done(function (data) {
+                var $province = $('#province_${id}'), $city = $('#city_${id}'),
+                        $area = $('#area_${id}'), provinceData = {};
+                $.each(data, function (name, value) {
+                    $province.append("<option value='" + value.name + "'>" + value.name + "</option>");
+                });
+                $province.change(function () {
+                    var $this = $(this);
+                    $.each(data, function (name, value) {
+                        if (value.name === $this.val()) {
+                            provinceData = value;
+                            $city.empty().append("<option value=''>请选择市</option>");
+                            $area.empty().append("<option value=''>请选择区</option>");
+                            $.each(value.city, function (name, value) {
+                                $city.append("<option value='" + value.name + "'>" + value.name + "</option>");
+                            });
+                        }
+                    });
+                });
+                $city.change(function () {
+                    var $this = $(this);
+                    $.each(provinceData.city, function (name, value) {
+                        if (value.name === $this.val()) {
+                            $area.empty().append("<option value=''>请选择区</option>");
+                            $.each(value.area, function (name, value) {
+                                $area.append("<option value='" + value + "'>" + value + "</option>");
+                            })
+                        }
+                    })
+                })
+            });
+
+            var rules_${id} = {};
         <#if validateRules??&&validateRules!=''>
             rules_${id} = ${validateRules};
         </#if>
-        if(rules_${id}.required){
-            $('#control_area_${id} span.label').append('<span class="required">*</span>')
-        }
-        $("#province_${id}").rules("add", rules_${id});
-        $("#city_${id}").rules("add", rules_${id});
-        $("#area_${id}").rules("add", rules_${id});
-    });
-</script>
+            if (rules_${id}.required) {
+                $('#control_area_${id} span.label').append('<span class="required">*</span>')
+            }
+            $("#province_${id}").rules("add", rules_${id});
+            $("#city_${id}").rules("add", rules_${id});
+            $("#area_${id}").rules("add", rules_${id});
+        });
+    </script>
+</div>

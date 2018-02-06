@@ -5,22 +5,23 @@
     </label>
     <select class="form-control" id="control_${id}" name="${name}"></select>
     <small class="form-text text-muted">${description!""}</small>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var rules_${id} ={},data_${id}=[];
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rules_${id} = {}, data_${id}= [];
         <#if validateRules??&&validateRules!=''>
             rules_${id} = ${validateRules};
         </#if>
         <#if data??&&data!=''>
             data_${id}=${data};
-            $.each(data_${id},function (i,v) {
-                $('#control_${id}').append('<option value="'+v+'">'+v+'</option>');
+            $.each(data_${id}, function (i, v) {
+                $('#control_${id}').append('<option value="' + v + '">' + v + '</option>');
             });
         </#if>
-        if(rules_${id}.required){
-            $('#control_area_${id} span.label').append('<span class="required">*</span>')
-        }
-        $("#control_" +${id}).rules("add", rules_${id});
-    });
-</script>
+            if (rules_${id}.required) {
+                $('#control_area_${id} span.label').append('<span class="required">*</span>')
+            }
+            $("#control_" +${id}).rules("add", rules_${id});
+        });
+    </script>
+</div>

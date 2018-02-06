@@ -5,16 +5,17 @@
     </label>
     <input class="form-control" type="text" id="control_${id}" name="${name}" autocomplete="off">
     <small class="form-text text-muted">${description!""}</small>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var rules_${id} ={};
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var rules_${id} = {};
         <#if validateRules??&&validateRules!=''>
             rules_${id} = ${validateRules};
         </#if>
-        if(rules_${id}.required){
-            $('#control_area_${id} span.label').append('<span class="required">*</span>')
-        }
-        $("#control_" +${id}).rules("add", rules_${id});
-    });
-</script>
+            if (rules_${id}.required) {
+                $('#control_area_${id} span.label').append('<span class="required">*</span>')
+            }
+            $("#control_" +${id}).rules("add", rules_${id});
+        });
+    </script>
+</div>
