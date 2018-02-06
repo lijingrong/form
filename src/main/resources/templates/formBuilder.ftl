@@ -24,9 +24,11 @@
         .control {
             background: #ccc;
         }
-        .control-area{
+
+        .control-area {
 
         }
+
         #attributeArea {
             position: absolute;
             right: 10px;
@@ -35,18 +37,21 @@
             height: 700px;
         }
 
-        .delete,.deleteData {
+        .delete, .deleteData {
             cursor: pointer;
         }
-        .required{
+
+        .required {
             color: red;
         }
-        .selected{
-            border:1px dashed #cccccc;
+
+        .selected {
+            border: 1px dashed #cccccc;
             padding: 3px 3px;
         }
-        .mouse_over{
-            border:1px dashed #cccccc;
+
+        .mouse_over {
+            border: 1px dashed #cccccc;
         }
     </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
@@ -67,7 +72,8 @@
 
     <ul class="nav nav-tabs" id="controlAreaTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="common-tab" data-toggle="tab" href="#commonControl" role="tab" aria-controls="home"
+            <a class="nav-link active" id="common-tab" data-toggle="tab" href="#commonControl" role="tab"
+               aria-controls="home"
                aria-selected="true">常用控件</a>
         </li>
         <li class="nav-item">
@@ -80,7 +86,8 @@
             <ul class="list-group">
                 <#list components as component>
                     <#if component.isCommon>
-                        <li class="list-group-item control" componentName="${component.name}" common="true">${component.label}</li>
+                        <li class="list-group-item control" componentName="${component.name}"
+                            common="true">${component.label}</li>
                     </#if>
                 </#list>
             </ul>
@@ -89,7 +96,8 @@
             <ul class="list-group">
                 <#list components as component>
                     <#if !component.isCommon>
-                        <li class="list-group-item control" componentName="${component.name}" common="true">${component.label}</li>
+                        <li class="list-group-item control" componentName="${component.name}"
+                            common="true">${component.label}</li>
                     </#if>
                 </#list>
             </ul>
@@ -101,6 +109,7 @@
     var formId = window.location.pathname.split('/')[2];
     $(".control").draggable({revert: "invalid", helper: "clone"});
     $("#formArea").droppable({
+        accept: '.control',
         drop: function (event, ui) {
             var $this = $(this);
             $.ajax({
@@ -122,13 +131,15 @@
             initForm();
         });
 
+        $("#formArea").sortable().disableSelection();
     });
 
     function initForm() {
-        $("#formArea .control-area").unbind();
-        $("#formArea .control-area").mouseover(function () {
+        var $controlArea = $("#formArea .control-area");
+        $controlArea.unbind();
+        $controlArea.mouseover(function () {
             var $this = $(this);
-            if(!$this.hasClass("selected")){
+            if (!$this.hasClass("selected")) {
                 $this.addClass("mouse_over");
             }
             $this.find('.delete').bind("click", function (event) {
@@ -142,11 +153,11 @@
                 event.stopPropagation();
             }).show();
         });
-        $("#formArea .control-area").mouseout(function () {
+        $controlArea.mouseout(function () {
             $(this).removeClass("mouse_over");
             $(this).find('.delete').unbind().hide();
         });
-        $("#formArea .control-area").bind("click", function () {
+        $controlArea.bind("click", function () {
             $("#formArea div.selected").removeClass("selected");
             var $this = $(this);
             $this.addClass("selected");
