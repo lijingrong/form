@@ -25,3 +25,4 @@ INSERT INTO t_component_control (component_name, control_label, control_name) VA
 
 INSERT INTO t_form (id, title, description) VALUES (1, '第一个表单', '坚持就是胜利');
 
+
