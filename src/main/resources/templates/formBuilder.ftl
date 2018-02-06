@@ -36,8 +36,13 @@
             width: 300px;
             height: 700px;
         }
-
-        .delete, .deleteData {
+        .delete{
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+         .deleteData {
             cursor: pointer;
         }
 
@@ -157,7 +162,8 @@
             $(this).removeClass("mouse_over");
             $(this).find('.delete').unbind().hide();
         });
-        $controlArea.bind("click", function () {
+        $controlArea.bind("click", function (event) {
+            console.log(event.target);
             $("#formArea div.selected").removeClass("selected");
             var $this = $(this);
             $this.addClass("selected");
