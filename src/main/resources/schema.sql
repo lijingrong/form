@@ -12,7 +12,9 @@ CREATE TABLE users (
   username VARCHAR(50) NOT NULL PRIMARY KEY,
   password VARCHAR(50) NOT NULL,
   enabled  BOOLEAN     NOT NULL,
-  telephone VARCHAR(20) NOT NULL
+  telephone VARCHAR(20) NOT NULL UNIQUE ,
+  nickname VARCHAR(50) UNIQUE ,
+  organization VARCHAR(100)
 );
 
 CREATE TABLE authorities (
@@ -21,7 +23,8 @@ CREATE TABLE authorities (
 );
 CREATE TABLE t_form(
   id VARCHAR(10) PRIMARY KEY ,
-  title VARCHAR(100),
+  title VARCHAR(100) NOT NULL ,
+  creator VARCHAR(20) NOT NULL ,
   description VARCHAR(255)
 );
 

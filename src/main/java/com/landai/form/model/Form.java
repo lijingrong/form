@@ -2,9 +2,7 @@ package com.landai.form.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,5 +13,8 @@ public class Form {
     private String id;
     private String title;
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "creator")
+    private User user;
 
 }

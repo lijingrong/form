@@ -22,12 +22,18 @@
     <label for="inputEmail" class="sr-only">Email address</label>
     <input id="inputEmail" name="username" class="form-control" value="15951076347" placeholder="手机" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" value="user" class="form-control" placeholder="密码" required>
+    <input type="password" name="password" id="inputPassword" value="aaa" class="form-control" placeholder="密码" required>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" value="remember-me"> 记住密码
         </label>
+        <a href="/signUp">注册账号</a>
     </div>
+    <#if error??>
+        <div class="alert alert-danger" role="alert">
+            手机或密码错误
+        </div>
+    </#if>
     <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
 </form>

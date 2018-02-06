@@ -23,8 +23,8 @@ INSERT INTO t_component_control (component_name, control_label, control_name) VA
   ('compositeAddress', '区', 'area'),
   ('compositeAddress', '详细地址', 'address');
 
-INSERT INTO t_form (id, title, description) VALUES (1, '第一个表单', '坚持就是胜利');
+INSERT INTO t_form (id, title,creator, description) VALUES (1, '第一个表单','user', '坚持就是胜利');
 
-insert into users (username, password, enabled,telephone) values ('user', 'user', true,'15951076347');
+insert into users (username, password, enabled,telephone) values ('user', '47bce5c74f589f4867dbd57e9ca9f808', true,'15951076347');
 insert into authorities (username, authority) values ('user', 'ROLE_ADMIN');
 

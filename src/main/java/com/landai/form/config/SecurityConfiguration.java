@@ -3,6 +3,7 @@ package com.landai.form.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,16 +23,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/static/**", "/anon/**").permitAll().anyRequest()
+        http.csrf().disable().authorizeRequests().antMatchers("/static/**", "/","/signUp","/f/**").permitAll().anyRequest()
                 .fullyAuthenticated().and().formLogin().loginPage("/login")
-                .failureUrl("/login?error").permitAll().and().logout().
+                .failureUrl("/loginError").permitAll().and().logout().
                 logoutRequestMatcher(new AntPathRequestMatcher("/logout")).
                 invalidateHttpSession(true).permitAll();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().usersByUsernameQuery(DEF_USERS_BY_USERNAME_QUERY).dataSource(this.dataSource);
+        auth.jdbcAuthentication().usersByUsernameQuery(DEF_USERS_BY_USERNAME_QUERY)
+                .dataSource(this.dataSource).passwordEncoder(new Md5PasswordEncoder());
     }
 
 }

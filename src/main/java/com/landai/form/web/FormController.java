@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.landai.form.model.*;
 import com.landai.form.service.*;
+import com.landai.form.utils.CurrentUserUtil;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,6 +192,12 @@ public class FormController {
         return "redirect:/builder/" + form.getId();
     }
 
+    @GetMapping("/form/list")
+    public String formList(Model model){
+        model.addAttribute("forms",formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername()));
+        return "userForms";
+    }
+
     @PostMapping("/f/{formId}")
     @ResponseBody
     public Map<String, String> formSubmit(@PathVariable("formId") String formId,
@@ -226,8 +233,5 @@ public class FormController {
         return "formData";
     }
 
-    @GetMapping("/signUp")
-    public String signUp(){
-        return "signUp";
-    }
+
 }
