@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,8 +17,9 @@
             left: 400px;
             top: 50px;
             width: 600px;
-            min-height: 700px;
+            height: 680px;
             padding: 15px;
+            overflow: auto;
             background-image: url("/static/images/2px.png");
         }
 
@@ -26,7 +28,7 @@
         }
 
         .control-area {
-
+            position: relative;
         }
 
         #attributeArea {
@@ -36,13 +38,15 @@
             width: 300px;
             height: 700px;
         }
-        .delete{
+
+        .delete {
             cursor: pointer;
             position: absolute;
-            top: 0;
+            top: 3px;
             right: 0;
         }
-         .deleteData {
+
+        .deleteData {
             cursor: pointer;
         }
 
@@ -154,6 +158,7 @@
                     data: {componentId: $this.attr('id').split('_')[2]}
                 }).done(function () {
                     $this.remove();
+                    $("#attributeArea").empty();
                 });
                 event.stopPropagation();
             }).show();
@@ -162,8 +167,7 @@
             $(this).removeClass("mouse_over");
             $(this).find('.delete').unbind().hide();
         });
-        $controlArea.bind("click", function (event) {
-            console.log(event.target);
+        $controlArea.bind("click", function () {
             $("#formArea div.selected").removeClass("selected");
             var $this = $(this);
             $this.addClass("selected");

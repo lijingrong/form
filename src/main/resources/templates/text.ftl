@@ -1,10 +1,11 @@
 <div id="control_area_${id}" class="form-group control-area">
     <label id="control_${id}_label" for="control_${id}">
         <span class="label">${label}:</span>
+        <span class="badge badge-light delete" style="display: none; padding: .5em .8em;">x</span>
     </label>
-    <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
     <input class="form-control" type="text" id="control_${id}" name="${name}" autocomplete="off">
     <small class="form-text text-muted">${description!""}</small>
+
     <script type="text/javascript">
         $(document).ready(function () {
             var rules_${id} = {};

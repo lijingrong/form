@@ -1,7 +1,7 @@
 <div id="control_area_${id}" class="form-group control-area">
     <label>
         <span class="label">${label}:</span>
-        <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
+        <span class="badge badge-light delete" style="display: none; padding: .5em .8em;">x</span>
     </label>
     <div class="row">
         <div class="col">

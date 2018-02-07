@@ -1,8 +1,8 @@
 <div id="control_area_${id}" class="form-group control-area">
     <label>
         <span class="label">${label}:</span>
+        <span class="badge badge-light delete" style="display: none; padding: .5em .8em;">x</span>
     </label>
-    <span class="badge badge-light delete" style="display: none;margin-top: 10px">x</span>
     <select class="form-control" id="control_${id}" name="${name}"></select>
     <small class="form-text text-muted">${description!""}</small>
 
