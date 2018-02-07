@@ -188,6 +188,7 @@ public class FormController {
         if (StringUtils.isEmpty(form.getId())) {
             form.setId(RandomStringUtils.randomAlphanumeric(6));
         }
+        form.setUser(CurrentUserUtil.getUser());
         formService.saveForm(form);
         return "redirect:/builder/" + form.getId();
     }
