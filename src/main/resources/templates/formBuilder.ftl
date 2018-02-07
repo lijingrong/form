@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <style>
         #controlArea {
+            position: fixed;
+            top: 50px;
+            left: 15px;
             width: 300px;
             height: 700px;
-            margin-left: 10px;
-            margin-top: 50px;
         }
 
         #formArea {
@@ -17,9 +18,8 @@
             left: 400px;
             top: 50px;
             width: 600px;
-            height: 680px;
+            min-height: 700px;
             padding: 15px;
-            overflow: auto;
             background-image: url("/static/images/2px.png");
         }
 
@@ -32,8 +32,8 @@
         }
 
         #attributeArea {
-            position: absolute;
-            right: 10px;
+            position: fixed;
+            right: 15px;
             top: 50px;
             width: 300px;
             height: 700px;
@@ -78,7 +78,6 @@
 <div id="formArea"></div>
 
 <div id="controlArea">
-
     <ul class="nav nav-tabs" id="controlAreaTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="common-tab" data-toggle="tab" href="#commonControl" role="tab"
@@ -151,7 +150,7 @@
             if (!$this.hasClass("selected")) {
                 $this.addClass("mouse_over");
             }
-            $this.find('.delete').bind("click", function (event) {
+            $this.find('.delete').bind("click", function () {
                 $.ajax({
                     method: 'post',
                     url: '/form/' + formId + '/deleteComponent',
@@ -160,7 +159,7 @@
                     $this.remove();
                     $("#attributeArea").empty();
                 });
-                event.stopPropagation();
+                return false;
             }).show();
         });
         $controlArea.mouseout(function () {
