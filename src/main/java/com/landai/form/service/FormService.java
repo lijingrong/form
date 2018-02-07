@@ -30,7 +30,7 @@ public class FormService {
     }
 
     public List<Form> getFormsByCreator(String creator) {
-        return formRepository.getFormsByUser(userRepository.getOne(creator));
+        return formRepository.getFormsByUserOrderByCreateTimeDesc(userRepository.getOne(creator));
     }
 
     public void saveForm(Form form) {

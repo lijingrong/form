@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface FormRepository extends JpaRepository<Form, String> {
 
-    List<Form> getFormsByUser(User user);
+    List<Form> getFormsByUserOrderByCreateTimeDesc(User user);
+
 }

@@ -25,6 +25,8 @@ CREATE TABLE t_form(
   id VARCHAR(10) PRIMARY KEY ,
   title VARCHAR(100) NOT NULL ,
   creator VARCHAR(20) NOT NULL ,
+  create_time DATETIME DEFAULT now(),
+  status VARCHAR(10) NOT NULL ,
   description VARCHAR(255)
 );
 

@@ -3,6 +3,7 @@ package com.landai.form.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -16,5 +17,7 @@ public class Form {
     @ManyToOne
     @JoinColumn(name = "creator")
     private User user;
-
+    private Date createTime = new Date();
+    @Enumerated(EnumType.STRING)
+    private FormStatus status = FormStatus.DRAFT;
 }

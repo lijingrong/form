@@ -15,7 +15,20 @@
                                     <button onclick="location='/f/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">预览</button>
                                     <button onclick="location='/builder/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">编辑</button>
                                 </div>
-                                <small class="text-muted">2018-02-06</small>
+                                <small class="text-muted">
+                                    <#switch form.status>
+                                        <#case "DRAFT">
+                                            草稿
+                                            <#break>
+                                        <#case "PUBLISHED">
+                                            已发布
+                                            <#break>
+                                        <#case "DISABLED">
+                                            已停用
+                                            <#break>
+                                    </#switch>
+                                </small>
+                                <small class="text-muted">${form.createTime?string('yyyy-MM-dd')}</small>
                             </div>
                         </div>
                     </div>
