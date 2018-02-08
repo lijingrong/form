@@ -13,6 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
     <script src="/static/js/messages_zh.js"></script>
     <script src="/static/js/jquery.form.min.js"></script>
+    <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
     <style>
         .required {
             color: red;
@@ -66,14 +68,14 @@
     })(jQuery);
 
     $("#form").validate({
-        submitHandler: function(form) {
+        submitHandler: function (form) {
             var data = $(form).serializeFormJSON();
             $.ajax({
-               method:'post',
-               url:window.location.pathname,
-               data:{formValue:JSON.stringify(data)}
+                method: 'post',
+                url: window.location.pathname,
+                data: {formValue: JSON.stringify(data)}
             }).done(function (status) {
-                window.location.href=status.redirectUrl;
+                window.location.href = status.redirectUrl;
             });
         }
     });

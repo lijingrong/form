@@ -11,11 +11,14 @@ INSERT INTO t_component_prototype (name, label, view_page, edit_page, data, vali
   ('email', '邮箱', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'email'),
   ('url', '网址', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'url'),
   ('compositeAddress', '地址', 'compositeAddress.ftl', 'compositeAddressEdit.ftl', '', '', TRUE, 'address'),
+  ('birthday', '生日', 'date.ftl', 'stringEdit.ftl', '', '', TRUE, 'date'),
   ('text', '单行文本', 'text.ftl', 'stringEdit.ftl', '', '', FALSE, 'string'),
   ('textarea', '多行文本', 'textarea.ftl', 'stringEdit.ftl', '', '', FALSE, 'string'),
   ('radio', '单选', 'radio.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'radio'),
   ('checkbox', '多选', 'checkbox.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'checkbox'),
-  ('select', '下拉选择', 'select.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'select');
+  ('select', '下拉选择', 'select.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'select'),
+  ('date', '日期', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'date'),
+  ('datetime', '日期时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'datetime');
 
 INSERT INTO t_component_control (component_name, control_label, control_name) VALUES
   ('compositeAddress', '省', 'province'),

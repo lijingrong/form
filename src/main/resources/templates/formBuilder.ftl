@@ -45,9 +45,6 @@
             <div id="attributeArea"></div>
         </div>
     </div>
-
-
-
 </div>
 
 <script>
