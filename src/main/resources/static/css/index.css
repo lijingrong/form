@@ -38,9 +38,11 @@ footer p {
 }
 
 .box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
 }
-
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
 .error {
     color: red;
 }
