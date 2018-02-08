@@ -10,7 +10,8 @@
         $(document).ready(function () {
 
             if (device.mobile() || device.tablet()) {
-                $("#control_${id}").attr("type", "date");
+                var $type = {'date': 'date', 'datetime': 'datetime-local'};
+                $("#control_${id}").attr("type", $type.${type});
             } else {
                 laydate.render({
                     elem: '#control_${id}',
