@@ -8,6 +8,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var $type = {'telephone': 'number', 'url': 'url', 'number': 'number', 'email': 'email'};
+            $("#control_${id}").attr("type", $type.${type});
+
             var rules_${id} = {};
         <#if validateRules??&&validateRules!=''>
             rules_${id} = ${validateRules};
