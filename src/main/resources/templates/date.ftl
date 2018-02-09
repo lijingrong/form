@@ -8,16 +8,23 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             if (device.mobile() || device.tablet()) {
                 var $type = {'date': 'date', 'datetime': 'datetime-local'};
                 if ($type.${type} !== undefined) {
                     $("#control_${id}").attr("type", $type.${type});
                 }
             } else {
-                laydate.render({
-                    elem: '#control_${id}',
-                    type: '${type}'
+                require.config({
+                    paths: {
+                        laydate: '/static/laydate/laydate'
+                    }
+                });
+
+                require(['laydate'], function (laydate) {
+                    laydate.render({
+                        elem: '#control_${id}',
+                        type: '${type}'
+                    });
                 });
             }
 

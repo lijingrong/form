@@ -17,5 +17,6 @@
             crossorigin="anonymous"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/holder.min.js"></script>
+    <script src="/static/js/require.js"></script>
 </body>
 </html>
