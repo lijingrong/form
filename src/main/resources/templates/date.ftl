@@ -11,7 +11,7 @@
             if (device.mobile() || device.tablet()) {
                 var $type = {'date': 'date', 'datetime': 'datetime-local'};
                 if ($type.${type} !== undefined) {
-                    $("#control_${id}").attr("type", $type.${type});
+                    $("#control_${id}").attr("type", $type.${type}).attr("style", "height: 38px;");
                 }
             } else {
                 require.config({
