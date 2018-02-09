@@ -11,7 +11,9 @@
 
             if (device.mobile() || device.tablet()) {
                 var $type = {'date': 'date', 'datetime': 'datetime-local'};
-                $("#control_${id}").attr("type", $type.${type});
+                if ($type.${type} !== undefined) {
+                    $("#control_${id}").attr("type", $type.${type});
+                }
             } else {
                 laydate.render({
                     elem: '#control_${id}',
