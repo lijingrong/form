@@ -14,6 +14,7 @@
     <script src="/static/js/messages_zh.js"></script>
     <script src="/static/js/jquery.form.min.js"></script>
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
+    <script src="/static/js/require.js"></script>
     <style>
         .required {
             color: red;
