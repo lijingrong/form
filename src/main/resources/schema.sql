@@ -27,7 +27,7 @@ CREATE TABLE t_form(
   creator VARCHAR(20) NOT NULL ,
   create_time DATETIME DEFAULT now(),
   status VARCHAR(10) NOT NULL ,
-  description VARCHAR(255)
+  description TEXT
 );
 
 CREATE TABLE t_form_value(

@@ -37,6 +37,7 @@ public class FormController {
     @GetMapping("/f/{formId}")
     public String formIndex(@PathVariable("formId") String formId, Model model) {
         model.addAttribute("components", componentService.getComponents(formId));
+        model.addAttribute("form", formService.getForm(formId));
         return "form";
     }
 
@@ -89,6 +90,7 @@ public class FormController {
     @GetMapping("/builder/{formId}")
     public String formBuilder(@PathVariable("formId") String formId, Model model) {
         model.addAttribute("components", componentPrototypeService.getAllComponentPrototypes());
+        model.addAttribute("form", formService.getForm(formId));
         return "formBuilder";
     }
 
@@ -101,6 +103,25 @@ public class FormController {
             fragment.append(component.getHtml());
         }
         return fragment.toString();
+    }
+
+    @GetMapping("/form/{formId}/edit")
+    @ResponseBody
+    public String formEdit(@PathVariable("formId") String formId) {
+        Form form = formService.getForm(formId);
+        return renderControlService.getRenderHtml("formEdit.ftl", form);
+    }
+
+    @PostMapping("/form/{formId}/edit")
+    @ResponseBody
+    public Status postFormEdit(@PathVariable("formId") String formId,
+                               @RequestParam("title") String title,
+                               @RequestParam("description") String description) {
+        Form form = formService.getForm(formId);
+        form.setTitle(title);
+        form.setDescription(description);
+        formService.saveForm(form);
+        return Status.SUCCESS;
     }
 
     @RequestMapping("/form/{formId}/componentEdit/{componentId}")
@@ -178,24 +199,21 @@ public class FormController {
         return Status.SUCCESS;
     }
 
-    @GetMapping("/form/new")
+    @RequestMapping("/form/new")
     public String newForm() {
-        return "newForm";
-    }
-
-    @PostMapping("/form/new")
-    public String postForm(@ModelAttribute Form form) {
-        if (StringUtils.isEmpty(form.getId())) {
-            form.setId(RandomStringUtils.randomAlphanumeric(6));
-        }
+        Form form = new Form();
+        form.setId(RandomStringUtils.randomAlphanumeric(6));
         form.setUser(CurrentUserUtil.getUser());
+        form.setTitle("表单名称");
+        form.setDescription("<p>表单描述</p>");
         formService.saveForm(form);
         return "redirect:/builder/" + form.getId();
+
     }
 
     @GetMapping("/form/list")
-    public String formList(Model model){
-        model.addAttribute("forms",formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername()));
+    public String formList(Model model) {
+        model.addAttribute("forms", formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername()));
         return "userForms";
     }
 

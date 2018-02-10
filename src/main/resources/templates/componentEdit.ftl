@@ -94,17 +94,6 @@
             }
         });
 
-        function refreshForm() {
-            $.ajax({
-                method: 'get',
-                url: '/form/' + formId
-            }).done(function (html) {
-                $("#formArea").empty().append(html);
-                initForm();
-                $("#control_area_" + componentId).addClass("selected");
-            });
-        }
-
         $("#controlDataButton").click(function () {
             var value = $('#controlDataValue').val();
             $.ajax({

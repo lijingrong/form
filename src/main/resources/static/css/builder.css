@@ -8,10 +8,18 @@
 
 #formArea {
     margin-top: 20px;
-    width: 600px;
+    width: 500px;
     min-height: 700px;
     padding: 15px;
     background-image: url("/static/images/2px.png");
+}
+#formControlsArea{
+    width: 450px;
+    min-height: 600px;
+}
+#formDescription{
+    border-bottom: solid 1px #666666;
+    margin-bottom: 10px;
 }
 
 .control {
@@ -26,10 +34,9 @@
     position: fixed;
     right: 15px;
     top: 70px;
-    width: 300px;
+    width: 400px;
     height: 700px;
 }
-
 .delete {
     cursor: pointer;
     position: absolute;

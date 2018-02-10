@@ -1,6 +1,11 @@
 <#include "header.ftl"/>
 <div class="album py-5 bg-light">
     <div class="container">
+        <div class="row mb-1">
+            <div class="col-12">
+                <a class="btn btn-primary" href="/form/new">创建表单</a>
+            </div>
+        </div>
         <div class="row">
             <#list forms as form>
                 <div class="col-md-4">

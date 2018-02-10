@@ -17,6 +17,8 @@
     <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/additional-methods.min.js"></script>
     <script src="/static/js/messages_zh.js"></script>
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
+    <script src="/static/laydate/laydate.js"></script>
+    <script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
 </head>
 
 <body>
