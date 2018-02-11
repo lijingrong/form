@@ -3,38 +3,46 @@
     <div class="row">
         <div class="col">
             <div id="controlArea">
-                <ul class="nav nav-tabs" id="controlAreaTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="common-tab" data-toggle="tab" href="#commonControl" role="tab"
-                           aria-controls="home"
-                           aria-selected="true">常用控件</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="custom-tab" data-toggle="tab" href="#customControl"
-                           role="tab" aria-controls="profile" aria-selected="false">自定义控件</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="controlAreaTabContent">
-                    <div class="tab-pane fade show active" id="commonControl" role="tabpanel"
-                         aria-labelledby="home-tab">
-                        <ul class="list-group">
-                <#list components as component>
-                    <#if component.isCommon>
-                        <li class="list-group-item control" componentName="${component.name}"
-                            common="true">${component.label}</li>
-                    </#if>
-                </#list>
-                        </ul>
+                <div class="container">
+                    <div class="row border p-2  bg-light text-dark"><h6>常用控件</h6></div>
+                    <div class="row">
+                            <#list commonComponents>
+                                <#items as component>
+                                    <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>" componentName="${component.name}"
+                                         common="true"><span>${component.label}</span></div>
+                                </#items>
+                            </#list>
+                            <#assign commonSize=3-commonComponents?size%3>
+                            <#switch commonSize>
+                                <#case 1>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <#break>
+                                <#case 2>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <#break>
+                            </#switch>
+
                     </div>
-                    <div class="tab-pane fade" id="customControl" role="tabpanel" aria-labelledby="home-tab">
-                        <ul class="list-group">
-                <#list components as component>
-                    <#if !component.isCommon>
-                        <li class="list-group-item control" componentName="${component.name}"
-                            common="true">${component.label}</li>
-                    </#if>
-                </#list>
-                        </ul>
+                </div>
+                <div class="container mt-3">
+                    <div class="row border p-2  bg-light text-dark"><h6>自定义控件</h6></div>
+                    <div class="row">
+                        <#list customComponents>
+                            <#items as component>
+                                  <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>" componentName="${component.name}"><span>${component.label}</span></div>
+                            </#items>
+                        </#list>
+                        <#assign customSize=3-customComponents?size%3>
+                            <#switch customSize>
+                                <#case 1>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <#break>
+                                <#case 2>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <div class="col-4 border-bottom border-right"></div>
+                                    <#break>
+                            </#switch>
                     </div>
                 </div>
             </div>

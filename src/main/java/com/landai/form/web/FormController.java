@@ -89,7 +89,8 @@ public class FormController {
 
     @GetMapping("/builder/{formId}")
     public String formBuilder(@PathVariable("formId") String formId, Model model) {
-        model.addAttribute("components", componentPrototypeService.getAllComponentPrototypes());
+        model.addAttribute("commonComponents", componentPrototypeService.getComponentPrototypesByIsCommon(true));
+        model.addAttribute("customComponents", componentPrototypeService.getComponentPrototypesByIsCommon(false));
         model.addAttribute("form", formService.getForm(formId));
         return "formBuilder";
     }

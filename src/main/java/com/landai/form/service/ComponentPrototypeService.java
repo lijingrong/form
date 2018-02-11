@@ -20,4 +20,8 @@ public class ComponentPrototypeService {
     public ComponentPrototype getComponentPrototype(String name) {
         return componentPrototypeRepository.getComponentPrototypeByName(name);
     }
+
+    public List<ComponentPrototype> getComponentPrototypesByIsCommon(final Boolean isCommon){
+        return componentPrototypeRepository.getComponentPrototypesByIsCommon(isCommon);
+    }
 }
