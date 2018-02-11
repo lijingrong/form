@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -19,9 +21,11 @@ public class ComponentService {
     @Autowired
     private FormRepository formRepository;
     @Autowired
-    RenderControlService renderControlService;
+    private RenderControlService renderControlService;
     @Autowired
-    ControlRepository controlRepository;
+    private ControlRepository controlRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public void saveComponent(Component component) {
         Control control = controlRepository.getControlByComponentIdAndName(component.getId(), component.getName());
@@ -37,7 +41,7 @@ public class ComponentService {
     }
 
     public List<Component> getComponents(String formId) {
-        List<Component> components = componentRepository.getComponentsByForm(formRepository.getOne(formId));
+        List<Component> components = componentRepository.getComponentsByFormOrderByOrdersAscIdAsc(formRepository.getOne(formId));
         for (Component component : components) {
             component.setHtml(renderControlService.getRenderHtml(component.getViewPage(), component));
         }
@@ -48,5 +52,16 @@ public class ComponentService {
     public void deleteComponent(Long componentId) {
         controlRepository.deleteControlByComponentId(componentId);
         componentRepository.delete(componentId);
+    }
+
+    @Transactional
+    public void batchUpdateComponent(List<Component> componentList) {
+        if (null != componentList && !componentList.isEmpty()) {
+            for (Component component : componentList) {
+                entityManager.merge(component);
+            }
+            entityManager.flush();
+            entityManager.clear();
+        }
     }
 }

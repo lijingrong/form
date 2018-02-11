@@ -15,7 +15,8 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="controlAreaTabContent">
-                    <div class="tab-pane fade show active" id="commonControl" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active" id="commonControl" role="tabpanel"
+                         aria-labelledby="home-tab">
                         <ul class="list-group">
                 <#list components as component>
                     <#if component.isCommon>
@@ -49,6 +50,12 @@
             <div id="attributeArea"></div>
         </div>
     </div>
+    <div class="row" style="margin: 15px;">
+        <div class="col-5"></div>
+        <div class="col-7">
+            <button class="btn btn-primary" type="button" id="formSubmitButton">提交</button>
+        </div>
+    </div>
 </div>
 <div id="formEditContainer"></div>
 
@@ -79,8 +86,30 @@
             initForm();
         });
 
+        $("#formSubmitButton").bind("click", function () {
+            var $array = [];
+            $("#formControlsArea div.control-area").each(function () {
+                var index = $("#formControlsArea div.control-area").index($(this));
+                var _json = {id: $(this).attr('id').split('_')[2], orders: index + 1};
+                $array.push(_json);
+            });
 
+            if ($array.length > 0) {
+                $("#formSubmitButton").attr("disabled", "disabled").text("提交中...");
+                $.ajax({
+                    method: "post",
+                    url: "/form/" + formId + "/save",
+                    data: {components: JSON.stringify($array)}
+                }).done(function () {
+                    $("#formSubmitButton").attr("disabled", false).text("提交");
+                    window.location.href = "/form/list";
+                });
+            } else {
+                window.location.href = "/form/list";
+            }
+        });
     });
+
     function initForm() {
         $("#formControlsArea").sortable().disableSelection();
         var $controlArea = $("#formControlsArea .control-area");
@@ -117,15 +146,16 @@
                 $("#attributeArea").empty().append(html);
             })
         });
-        $("#formTitle,#formDescription").unbind().bind('click',function () {
+        $("#formTitle,#formDescription").unbind().bind('click', function () {
             $.ajax({
-                method:'get',
-                url:'/form/'+formId+'/edit'
+                method: 'get',
+                url: '/form/' + formId + '/edit'
             }).done(function (html) {
                 $('#formEditContainer').empty().append(html);
             })
         });
     }
+
     function refreshForm() {
         $.ajax({
             method: 'get',

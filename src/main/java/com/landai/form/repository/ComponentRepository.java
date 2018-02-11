@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ComponentRepository extends JpaRepository<Component, Long> {
 
-    List<Component> getComponentsByForm(final Form form);
+    List<Component> getComponentsByFormOrderByOrdersAscIdAsc(final Form form);
 }

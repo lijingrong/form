@@ -58,7 +58,8 @@ CREATE TABLE t_component(
   validate_rules TEXT,
   description VARCHAR(255),
   form_id VARCHAR(10),
-  type VARCHAR(10)
+  type VARCHAR(10),
+  orders TINYINT(4)
 );
 
 CREATE TABLE t_form_control(

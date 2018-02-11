@@ -25,4 +25,5 @@ public class Component {
     private String html;
     private String description;
     private String type;
+    private Short orders;
 }

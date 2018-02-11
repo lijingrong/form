@@ -1,7 +1,7 @@
 package com.landai.form.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.landai.form.model.*;
 import com.landai.form.service.*;
 import com.landai.form.utils.CurrentUserUtil;
@@ -121,6 +121,32 @@ public class FormController {
         form.setTitle(title);
         form.setDescription(description);
         formService.saveForm(form);
+        return Status.SUCCESS;
+    }
+
+    @PostMapping("/form/{formId}/save")
+    @ResponseBody
+    public Status postFormSave(@PathVariable("formId") String formId,
+                               @RequestParam("components") String components) {
+        try {
+            CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(List.class, Component.class);
+            List<Component> comps = objectMapper.readValue(components, javaType);
+            List<Component> componentList = componentService.getComponents(formId);
+
+            for (Component component : componentList) {
+                for (Component comp : comps) {
+                    if (comp.getId() == component.getId().longValue()) {
+                        component.setOrders(comp.getOrders());
+                        break;
+                    }
+                }
+            }
+
+            componentService.batchUpdateComponent(componentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return Status.SUCCESS;
     }
 
