@@ -67,7 +67,7 @@ CREATE TABLE t_form_control(
   form_id VARCHAR(10),
   component_id BIGINT,
   label VARCHAR(255),
-  name VARCHAR(10)
+  name VARCHAR(50)
 );
 
 CREATE TABLE t_component_control(
