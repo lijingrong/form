@@ -1,14 +1,16 @@
 <#include "header.ftl"/>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div id="controlArea">
-                <div class="container">
-                    <div class="row border p-2  bg-light text-dark"><h6>常用控件</h6></div>
-                    <div class="row">
+<div class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="controlArea">
+                    <div class="container">
+                        <div class="row border p-2  bg-light text-dark"><h6>常用控件</h6></div>
+                        <div class="row">
                             <#list commonComponents>
                                 <#items as component>
-                                    <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>" componentName="${component.name}"
+                                    <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>"
+                                         componentName="${component.name}"
                                          common="true"><span>${component.label}</span></div>
                                 </#items>
                             </#list>
@@ -22,18 +24,18 @@
                                     <div class="col-4 border-bottom border-right"></div>
                                     <#break>
                             </#switch>
-
+                        </div>
                     </div>
-                </div>
-                <div class="container mt-3">
-                    <div class="row border p-2  bg-light text-dark"><h6>自定义控件</h6></div>
-                    <div class="row">
-                        <#list customComponents>
-                            <#items as component>
-                                  <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>" componentName="${component.name}"><span>${component.label}</span></div>
-                            </#items>
-                        </#list>
-                        <#assign customSize=3-customComponents?size%3>
+                    <div class="container mt-3">
+                        <div class="row border p-2  bg-light text-dark"><h6>自定义控件</h6></div>
+                        <div class="row">
+                            <#list customComponents>
+                                <#items as component>
+                                      <div class="col-4 text-center control <#if component_index%3==0>border border-top-0 <#else>border-bottom border-right</#if>"
+                                           componentName="${component.name}"><span>${component.label}</span></div>
+                                </#items>
+                            </#list>
+                            <#assign customSize=3-customComponents?size%3>
                             <#switch customSize>
                                 <#case 1>
                                     <div class="col-4 border-bottom border-right"></div>
@@ -43,28 +45,31 @@
                                     <div class="col-4 border-bottom border-right"></div>
                                     <#break>
                             </#switch>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div id="formArea">
-                <div id="formTitle"><h4>${form.title}</h4></div>
-                <div id="formDescription">${form.description}</div>
-                <div id="formControlsArea"></div>
+            <div class="col">
+                <div id="formArea">
+                    <div id="formTitle"><h4>${form.title}</h4></div>
+                    <div id="formDescription">${form.description}</div>
+                    <div id="formControlsArea"></div>
+                </div>
+            </div>
+            <div class="col">
+                <div id="attributeArea"></div>
             </div>
         </div>
-        <div class="col">
-            <div id="attributeArea"></div>
+        <div class="row" style="margin: 15px;">
+            <div class="col-5"></div>
+            <div class="col-7">
+                <button class="btn btn-primary" type="button" id="formSubmitButton">提交</button>
+            </div>
         </div>
-    </div>
-    <div class="row" style="margin: 15px;">
-        <div class="col-5"></div>
-        <div class="col-7">
-            <button class="btn btn-primary" type="button" id="formSubmitButton">提交</button>
-        </div>
+        <div class="row"></div>
     </div>
 </div>
+
 <div id="formEditContainer"></div>
 
 <script>
