@@ -125,7 +125,7 @@
 
     function initForm() {
         $("#formControlsArea").sortable().disableSelection();
-        var $controlArea = $("#formControlsArea .control-area");
+        var $controlArea = $("#formControlsArea div.control-area");
         $controlArea.unbind();
         $controlArea.mouseover(function () {
             var $this = $(this);
@@ -138,6 +138,7 @@
                     url: '/form/' + formId + '/deleteComponent',
                     data: {componentId: $this.attr('id').split('_')[2]}
                 }).done(function () {
+                    subtractControlsHeight($this.height() + 16);
                     $this.remove();
                     $("#attributeArea").empty();
                 });
@@ -167,6 +168,31 @@
                 $('#formEditContainer').empty().append(html);
             })
         });
+        addControlsHeight(90);
+    }
+
+    // 增加 formControlsArea 区域高度
+    function addControlsHeight($h) {
+        var $height = 0;
+
+        $("#formControlsArea div.control-area").each(function () {
+            $height = $height + $(this).height() + 16;  // 两个控件之间的高度
+        });
+
+        if ($height >= 460) {
+            $("#formControlsArea").height($height + $h);
+        }
+    }
+
+    // 减少 formControlsArea 区域高度
+    function subtractControlsHeight($h) {
+        var $height = $("#formControlsArea").height();
+
+        if ($height <= 600) {
+            $("#formControlsArea").height(600);
+        } else {
+            $("#formControlsArea").height($height - $h);
+        }
     }
 
     function refreshForm() {
