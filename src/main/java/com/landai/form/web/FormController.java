@@ -95,6 +95,12 @@ public class FormController {
         return "formBuilder";
     }
 
+    @GetMapping("/form/{formId}/skin")
+    public String formSkin(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("form", formService.getForm(formId));
+        return "formSkin";
+    }
+
     @GetMapping("/form/{formId}")
     @ResponseBody
     public String getForm(@PathVariable("formId") String formId) {
