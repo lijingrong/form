@@ -76,7 +76,7 @@
     var formId = window.location.pathname.split('/')[2];
 
     $(document).ready(function () {
-        $(".control").draggable({revert: "invalid", helper: "clone"});
+        $(".control").draggable({cursor: "move",revert: "invalid", helper: "clone"});
         $("#formControlsArea").droppable({
             accept: '.control',
             drop: function (event, ui) {
@@ -86,9 +86,20 @@
                     url: "/form/" + formId + "/getComponent",
                     data: {componentName: ui.helper.attr("componentName")}
                 }).done(function (html) {
+                    $this.find("div.componentDropArea").remove();
                     $this.append(html);
                     initForm();
                 });
+            },
+            over:function (event,ui) {
+                console.log("over");
+                var $this = $(this);
+                $this.append($('<div>').addClass("componentDropArea"));
+            },
+            out:function (event,ui) {
+                console.log("out");
+                var $this = $(this);
+                $this.find("div.componentDropArea").remove();
             }
         });
         $.ajax({
