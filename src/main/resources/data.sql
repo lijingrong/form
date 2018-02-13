@@ -3,8 +3,8 @@ USE form;
 INSERT INTO t_component_prototype (name, label, view_page, edit_page, data, validate_rules, is_common, type) VALUES
   ('name', '姓名', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'string'),
   ('gender', '性别', 'radio.ftl', 'multipleValueEdit.ftl', '["男","女"]', '', TRUE, 'radio'),
-  ('telephone', '手机号', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'telephone'),
-  ('idCard', '身份证', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'idCard'),
+  ('telephone', '手机号', 'text.ftl', 'stringEdit.ftl', '', '{telephone:true}', TRUE, 'telephone'),
+  ('idCard', '身份证', 'text.ftl', 'stringEdit.ftl', '', '{idCard:true}', TRUE, 'idCard'),
   ('education', '学历', 'select.ftl', 'multipleValueEdit.ftl', '["本科","研究生","博士","专科"]', '', TRUE, 'select'),
   ('description', '简介', 'textarea.ftl', 'stringEdit.ftl', '', '', TRUE, 'string'),
   ('hobby', '兴趣', 'checkbox.ftl', 'multipleValueEdit.ftl', '["运动","音乐","唱歌","旅游"]', '', TRUE, 'checkbox'),

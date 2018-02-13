@@ -15,6 +15,7 @@
     <script src="/static/js/jquery.form.min.js"></script>
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
     <script src="/static/js/require.js"></script>
+    <script src="/static/js/validate-card-num.js"></script>
     <style>
         .required {
             color: red;
@@ -66,7 +67,12 @@
             return o;
         };
     })(jQuery);
-
+    jQuery.validator.addMethod("telephone", function(value, element) {
+        return this.optional(element) || /^(13[0-9]|14[579]|15[0-9]|17[0135678]|18[0-9])[0-9]{8}$|^09[0-9]{8}$|^[5|6|9][0-9]{7}$/.test(value);
+    }, "请输入合法的手机号");
+    jQuery.validator.addMethod("idCard",function (value,element) {
+        return this.optional(element) || new IdCardValidate(value).CheckValid(value);
+    },"请输入合法的身份证号");
     $("#form").validate({
         submitHandler: function (form) {
             var data = $(form).serializeFormJSON();
