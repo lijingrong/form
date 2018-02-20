@@ -22,9 +22,10 @@
         }
 
         .form-area {
-            max-width: 800px;
-            margin: 5px auto;
-            padding: 5px 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            max-width: 600px;
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
         }
 
         .error {
@@ -32,19 +33,16 @@
         }
     </style>
 </head>
-<body>
-<div class="form-area">
+<body class="bg-light">
+<div class="container form-area">
     <form id="form" method="post">
+        <div>${form.description}</div>
     <#list components as component >
         <div>${component.html}</div>
     </#list>
-        <div class="form-group row">
-            <div class="col-3"></div>
-            <div class="col-7">
-                <button class="btn btn-primary" type="submit">提交</button>
-            </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">提交</button>
         </div>
-
     </form>
 </div>
 

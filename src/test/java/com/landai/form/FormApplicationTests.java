@@ -19,7 +19,7 @@ public class FormApplicationTests {
         Map data = new HashMap();
         data.put("name", "telephone");
         data.put("label", "姓名");
-        System.out.println(renderControlTemplate.getRenderHtml("text.ftlh", data));
+        System.out.println(renderControlTemplate.getRenderHtml("text.ftl", data));
     }
 
 }
