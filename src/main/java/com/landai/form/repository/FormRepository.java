@@ -12,4 +12,6 @@ public interface FormRepository extends JpaRepository<Form, String> {
 
     List<Form> getFormsByUserOrderByCreateTimeDesc(User user);
 
+    List<Form> getFormsByTemplate(Boolean isTemplate);
+
 }

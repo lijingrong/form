@@ -50,6 +50,11 @@
 </head>
 <body class="bg-light">
 <div class="container form-area">
+    <#if form.status =='DRAFT'>
+        <div class="alert alert-warning" role="alert">
+            表单为草稿状态，无法提交数据！
+        </div
+    </#if>
     <form id="form" method="post">
         <div>${form.description}</div>
     <#list components as component >
@@ -59,7 +64,7 @@
             <button class="btn btn-primary" type="submit">提交</button>
         </div>
         <div class="text-center mt-5">
-            <a href="https://www.dan-ye.com">单页表单</a><span>提供技术支持</span>
+           <span>由</span><a href="https://www.dan-ye.com">单页表单</a><span>提供技术支持</span>
         </div>
     </form>
 </div>
@@ -87,7 +92,7 @@
         if(device.desktop()){
             $.ajax({
                 method:'get',
-                url:'/form/qrcode/${form.id}'
+                url:'/f/qrcode/${form.id}'
             }).done(function (data) {
                 $('#formQrCode p').before($('<img>').attr('src','http://img.dan-ye.com/'+data.ossName));
                 $('#formQrCode').show();

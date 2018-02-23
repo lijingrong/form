@@ -33,6 +33,10 @@ public class FormService {
         return formRepository.getFormsByUserOrderByCreateTimeDesc(userRepository.getOne(creator));
     }
 
+    public List<Form> getTemplateForms() {
+        return formRepository.getFormsByTemplate(true);
+    }
+
     public void saveForm(Form form) {
         formRepository.save(form);
     }

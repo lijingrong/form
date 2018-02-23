@@ -14,17 +14,17 @@
                                 <div class="btn-group">
                                     <button onclick="location='/f/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">预览</button>
                                     <button onclick="location='/builder/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">编辑</button>
+                                    <#if form.status !='DRAFT'>
+                                        <button onclick="location='/form/${form.id}/data'" type="button" class="btn btn-sm btn-outline-secondary">数据</button>
+                                    </#if>
                                 </div>
-                                <small class="text-muted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src=''>">
-                                    二维码
-                                </small>
                                 <small class="text-muted">
                                     <#switch form.status>
                                         <#case "DRAFT">
                                             草稿
                                             <#break>
                                         <#case "PUBLISHED">
-                                            已发布
+                                            <span class="text-success">已发布</span>
                                             <#break>
                                         <#case "DISABLED">
                                             已停用

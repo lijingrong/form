@@ -14,6 +14,8 @@ public class Form {
     private String id;
     private String title;
     private String description;
+    private String afterPostDesc;
+    private Boolean template;
     @ManyToOne
     @JoinColumn(name = "creator")
     private User user;

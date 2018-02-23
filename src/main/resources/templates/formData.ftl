@@ -1,17 +1,20 @@
 <#include "header.ftl"/>
-<div class="container">
-    <table id="formDataTable" class="table">
-        <thead>
-        <tr>
+<div class="bg-light" style="min-height: 500px">
+    <div class="container pt-5">
+        <table id="formDataTable" class="table">
+            <thead>
+            <tr>
             <#list controls as control>
                 <th controlName="${control.name}">${control.label}</th>
             </#list>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function () {
        var data = [],controlNames=[];

@@ -107,6 +107,17 @@ public class FormController {
         return "formPublish";
     }
 
+    @PostMapping("/form/{formId}/publish")
+    @ResponseBody
+    public Status postFormPublish(@PathVariable("formId") String formId,
+                                  @RequestParam("afterPostDesc") String afterPostDesc) {
+        Form form = formService.getForm(formId);
+        form.setStatus(FormStatus.PUBLISHED);
+        form.setAfterPostDesc(afterPostDesc);
+        formService.saveForm(form);
+        return Status.SUCCESS;
+    }
+
     @GetMapping("/form/{formId}")
     @ResponseBody
     public String getForm(@PathVariable("formId") String formId) {
@@ -266,12 +277,13 @@ public class FormController {
         fv.setFormValue(formValue);
         formService.saveFormValue(fv);
         Map<String, String> status = new HashMap<>();
-        status.put("redirectUrl", "/f/submitSuccess");
+        status.put("redirectUrl", "/f/" + formId + "/submitSuccess");
         return status;
     }
 
-    @GetMapping("/f/submitSuccess")
-    public String submitSuccess() {
+    @GetMapping("/f/{formId}/submitSuccess")
+    public String submitSuccess(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("form", formService.getForm(formId));
         return "submitSuccess";
     }
 

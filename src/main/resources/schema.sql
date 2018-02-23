@@ -28,7 +28,9 @@ CREATE TABLE t_form(
   creator VARCHAR(20) NOT NULL ,
   create_time DATETIME DEFAULT now(),
   status VARCHAR(10) NOT NULL ,
-  description TEXT
+  description TEXT,
+  after_post_desc TEXT,
+  template BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE t_form_value(

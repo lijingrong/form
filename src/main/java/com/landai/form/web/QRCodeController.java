@@ -18,7 +18,7 @@ public class QRCodeController {
     private QRCodeRepository qrCodeRepository;
 
 
-    @GetMapping("/form/qrcode/{formId}")
+    @GetMapping("/f/qrcode/{formId}")
     @ResponseBody
     public QRCode qrcode(@PathVariable("formId") String formId) {
         QRCode qrCode = qrCodeRepository.findQRCodeByFormId(formId);
