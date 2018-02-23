@@ -31,6 +31,21 @@
         .error {
             color: red;
         }
+        .qr_code_pc {
+            position: absolute;
+            right: 140px;
+            top: 0;
+            width: 140px;
+            padding: 16px;
+            border: 1px solid #d9dadc;
+            background-color: #fff;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: center;
+        }
+        .qr_code_pc img{
+            width: 102px;
+        }
     </style>
 </head>
 <body class="bg-light">
@@ -43,9 +58,14 @@
         <div class="text-center">
             <button class="btn btn-primary" type="submit">提交</button>
         </div>
+        <div class="text-center mt-5">
+            <a href="https://www.dan-ye.com">单页表单</a><span>提供技术支持</span>
+        </div>
     </form>
 </div>
-
+<div id="formQrCode" class="qr_code_pc" style="display:none">
+    <p>手机扫一扫<br>微信分享</p>
+</div>
 <script>
     (function ($) {
         $.fn.serializeFormJSON = function () {
@@ -64,6 +84,16 @@
             });
             return o;
         };
+        if(device.desktop()){
+            $.ajax({
+                method:'get',
+                url:'/form/qrcode/${form.id}'
+            }).done(function (data) {
+                $('#formQrCode p').before($('<img>').attr('src','http://img.dan-ye.com/'+data.ossName));
+                $('#formQrCode').show();
+            })
+        }
+
     })(jQuery);
     jQuery.validator.addMethod("telephone", function(value, element) {
         return this.optional(element) || /^(13[0-9]|14[579]|15[0-9]|17[0135678]|18[0-9])[0-9]{8}$|^09[0-9]{8}$|^[5|6|9][0-9]{7}$/.test(value);
