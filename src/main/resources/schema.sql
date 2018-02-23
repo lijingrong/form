@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS t_form_control;
 DROP TABLE IF EXISTS t_component_control;
 DROP TABLE IF EXISTS authorities;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS t_qrcode;
 
 CREATE TABLE users (
   username VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -75,4 +76,10 @@ CREATE TABLE t_component_control(
   component_name VARCHAR(50),
   control_label VARCHAR(255),
   control_name VARCHAR(50)
+);
+
+CREATE TABLE t_qrcode(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+  oss_name VARCHAR(255),
+  form_id VARCHAR(50)
 );

@@ -38,8 +38,9 @@
                 >
                 <a class="btn" href="/form/${form.id}/skin">皮肤</a>
                 >
-                <a class="btn" href="/form/list">发布</a>
+                <a class="btn" href="/form/${form.id}/publish">发布</a>
             </div>
+
             <#if currentUser??>
                 <a class="btn btn-outline-primary" href="/form/list">我的表单</a>
             <#else >

@@ -33,11 +33,15 @@
                 </svg>
                 <strong>Form</strong>
             </a>
-            <#if currentUser??>
-                <a class="btn btn-outline-primary" href="/form/list">我的表单</a>
-            <#else >
+            <div>
+                <#if currentUser??>
+                    <a class="btn btn-outline-primary" href="/form/list">我的表单</a>
+                    <a class="btn btn-primary" href="/form/new">创建表单</a>
+                <#else >
                 <a href="/login" class="btn btn-secondary">登录</a>
-            </#if>
+                </#if>
+            </div>
+
         </div>
     </div>
 </header>

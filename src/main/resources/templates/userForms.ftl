@@ -1,11 +1,6 @@
 <#include "header.ftl"/>
 <div class="album py-5 bg-light">
     <div class="container">
-        <div class="row mb-1">
-            <div class="col-12">
-                <a class="btn btn-primary" href="/form/new">创建表单</a>
-            </div>
-        </div>
         <div class="row">
             <#list forms as form>
                 <div class="col-md-4">
@@ -20,6 +15,9 @@
                                     <button onclick="location='/f/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">预览</button>
                                     <button onclick="location='/builder/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">编辑</button>
                                 </div>
+                                <small class="text-muted" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src=''>">
+                                    二维码
+                                </small>
                                 <small class="text-muted">
                                     <#switch form.status>
                                         <#case "DRAFT">

@@ -101,6 +101,12 @@ public class FormController {
         return "formSkin";
     }
 
+    @GetMapping("/form/{formId}/publish")
+    public String formPublish(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("form", formService.getForm(formId));
+        return "formPublish";
+    }
+
     @GetMapping("/form/{formId}")
     @ResponseBody
     public String getForm(@PathVariable("formId") String formId) {
