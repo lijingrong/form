@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -24,8 +22,6 @@ public class ComponentService {
     private RenderControlService renderControlService;
     @Autowired
     private ControlRepository controlRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public void saveComponent(Component component) {
         Control control = controlRepository.getControlByComponentIdAndName(component.getId(), component.getName());
@@ -55,13 +51,7 @@ public class ComponentService {
     }
 
     @Transactional
-    public void batchUpdateComponent(List<Component> componentList) {
-        if (null != componentList && !componentList.isEmpty()) {
-            for (Component component : componentList) {
-                entityManager.merge(component);
-            }
-            entityManager.flush();
-            entityManager.clear();
-        }
+    public void batchSaveComponent(List<Component> components) {
+        componentRepository.save(components);
     }
 }

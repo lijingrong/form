@@ -8,7 +8,7 @@
                 <p class="lead text-muted">拖拽式表单设计器，帮您高效处理各类数据</p>
                 <p>
                     <#if currentUser??>
-                        <a href="/form/new" class="btn btn-primary my-2">创建表单</a>
+
                     <#else>
                         <a href="/signUp" class="btn btn-primary my-2">立即注册</a>
                     </#if>

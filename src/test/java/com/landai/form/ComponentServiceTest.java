@@ -37,6 +37,6 @@ public class ComponentServiceTest extends FormApplicationTests {
         component3.setOrders((short) 1);
         componentList.add(component3);
 
-        componentService.batchUpdateComponent(componentList);
+        componentService.batchSaveComponent(componentList);
     }
 }

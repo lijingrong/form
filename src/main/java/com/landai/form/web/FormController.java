@@ -156,7 +156,6 @@ public class FormController {
             CollectionType javaType = objectMapper.getTypeFactory().constructCollectionType(List.class, Component.class);
             List<Component> comps = objectMapper.readValue(components, javaType);
             List<Component> componentList = componentService.getComponents(formId);
-
             for (Component component : componentList) {
                 for (Component comp : comps) {
                     if (comp.getId() == component.getId().longValue()) {
@@ -165,12 +164,10 @@ public class FormController {
                     }
                 }
             }
-
-            componentService.batchUpdateComponent(componentList);
+            componentService.batchSaveComponent(componentList);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return Status.SUCCESS;
     }
 

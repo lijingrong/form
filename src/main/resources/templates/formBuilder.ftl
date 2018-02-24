@@ -60,12 +60,6 @@
                 <div id="attributeArea"></div>
             </div>
         </div>
-        <div class="row" style="margin: 15px;">
-            <div class="col-5"></div>
-            <div class="col-7">
-                <button class="btn btn-primary" type="button" id="formSubmitButton">提交</button>
-            </div>
-        </div>
         <div class="row" style="height: 1px;"></div>
     </div>
 </div>
@@ -109,33 +103,27 @@
             $("#formControlsArea").append(html);
             initForm();
         });
+    });
 
-        $("#formSubmitButton").bind("click", function () {
-            var $array = [];
-            $("#formControlsArea div.control-area").each(function () {
-                var index = $("#formControlsArea div.control-area").index($(this));
-                var _json = {id: $(this).attr('id').split('_')[2], orders: index + 1};
-                $array.push(_json);
-            });
-
-            if ($array.length > 0) {
-                $("#formSubmitButton").attr("disabled", "disabled").text("提交中...");
+    function initForm() {
+        $("#formControlsArea").sortable({
+            cursor: "move",
+            update:function (event,ui) {
+                var $array = [];
+                $("#formControlsArea div.control-area").each(function () {
+                    var index = $("#formControlsArea div.control-area").index($(this));
+                    var _json = {id: $(this).attr('id').split('_')[2], orders: index + 1};
+                    $array.push(_json);
+                });
                 $.ajax({
                     method: "post",
                     url: "/form/" + formId + "/save",
                     data: {components: JSON.stringify($array)}
                 }).done(function () {
-                    $("#formSubmitButton").attr("disabled", false).text("提交");
-                    window.location.href = "/form/list";
+                    //do nothing
                 });
-            } else {
-                window.location.href = "/form/list";
             }
-        });
-    });
-
-    function initForm() {
-        $("#formControlsArea").sortable().disableSelection();
+        }).disableSelection();
         var $controlArea = $("#formControlsArea div.control-area");
         $controlArea.unbind();
         $controlArea.mouseover(function () {

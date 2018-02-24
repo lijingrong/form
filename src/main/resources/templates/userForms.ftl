@@ -9,7 +9,9 @@
                              data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=${form.title}"
                              alt="Card image cap">
                         <div class="card-body">
-                            <p class="card-text">${form.description}</p>
+                            <div class="card-text d-inline-block text-truncate" style="max-width: 300px;height: 30px">
+                                ${form.description}
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button onclick="location='/f/${form.id}'" type="button" class="btn btn-sm btn-outline-secondary">预览</button>
