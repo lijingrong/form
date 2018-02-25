@@ -6,6 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>在线表单设计工具</title>
+    <meta name="keywords" content="表单,单页表单,表单设计,在线表单,数据分析,调查问卷,满意度调查,客户关系管理,反馈表,登记表">
+    <meta name="description"
+          content="单页表单一款在线表单设计工具,帮助用户轻松完成表单设计和数据收集工作">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/static/css/index.css" rel="stylesheet">
@@ -19,6 +22,16 @@
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
     <script src="/static/laydate/laydate.js"></script>
     <script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?53ab1dc142267ed6eddcda3a5c898044";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
 </head>
 
 <body>
