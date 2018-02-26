@@ -9,9 +9,11 @@ import java.util.List;
 @Repository
 public interface ControlRepository extends JpaRepository<Control, Long> {
 
-    Control getControlByComponentIdAndName(final Long componentId,final String name);
+    Control getControlByComponentIdAndName(final Long componentId, final String name);
 
     void deleteControlByComponentId(final Long componentId);
 
     List<Control> getControlsByFormId(final String formId);
+
+    List<Control> getControlsByFormIdAndAndComponentId(final String formId, final Long componentId);
 }

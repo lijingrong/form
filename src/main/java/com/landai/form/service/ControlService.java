@@ -24,4 +24,8 @@ public class ControlService {
     public List<Control> getControlsByFormId(String formId) {
         return controlRepository.getControlsByFormId(formId);
     }
+
+    public List<Control> getControlsByFormIdAndAndComponentId(String formId, Long componentId) {
+        return controlRepository.getControlsByFormIdAndAndComponentId(formId, componentId);
+    }
 }

@@ -65,7 +65,7 @@ public class FormController {
                 control.setComponentId(component.getId());
                 control.setFormId(formId);
                 control.setLabel(componentControl.getControlLabel());
-                control.setName(componentControl.getControlName() + component.getId());
+                control.setName(componentControl.getControlName() +"_"+ component.getId());
                 controls.add(control);
             }
         } else {
@@ -256,6 +256,12 @@ public class FormController {
         formService.saveForm(form);
         return "redirect:/builder/" + form.getId();
 
+    }
+
+    @RequestMapping("/form/{formId}/copy")
+    public String copyForm(@PathVariable("formId") String formId) {
+        Form form = formService.copyForm(formId);
+        return "redirect:/builder/" + form.getId();
     }
 
     @GetMapping("/form/list")
