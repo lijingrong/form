@@ -36,7 +36,6 @@
                                             <button type="button" onclick="location='/f/${form.id}'" class="btn btn-sm btn-outline-secondary">预览</button>
                                             <button type="button" onclick="location='/form/${form.id}/copy'" class="btn btn-sm btn-outline-secondary">使用</button>
                                         </div>
-                                        <small class="text-muted">使用人数：x</small>
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,8 @@ INSERT INTO t_component_prototype (name, label, view_page, edit_page, data, vali
   ('checkbox', '多选', 'checkbox.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'checkbox'),
   ('select', '下拉选择', 'select.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'select'),
   ('date', '日期', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'date'),
-  ('datetime', '日期时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'datetime');
+  ('datetime', '日期时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'datetime'),
+  ('position', '职位', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'string');
 
 INSERT INTO t_component_control (component_name, control_label, control_name) VALUES
   ('compositeAddress', '省', 'province'),

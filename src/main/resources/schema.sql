@@ -30,7 +30,8 @@ CREATE TABLE t_form(
   status VARCHAR(10) NOT NULL ,
   description TEXT,
   after_post_desc TEXT,
-  template BOOLEAN DEFAULT 0
+  template BOOLEAN DEFAULT 0,
+  template_id VARCHAR(10)
 );
 
 CREATE TABLE t_form_value(

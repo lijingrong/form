@@ -60,13 +60,14 @@ public class FormService {
         Form form = getForm(formId);
         Form newForm = new Form();
         newForm.setId(RandomStringUtils.randomAlphanumeric(6));
-        newForm.setTitle(form.getTitle()+"_copy");
+        newForm.setTitle(form.getTitle() + "_copy");
         newForm.setStatus(FormStatus.DRAFT);
         newForm.setAfterPostDesc(form.getAfterPostDesc());
         newForm.setDescription(form.getDescription());
         newForm.setUser(CurrentUserUtil.getUser());
         newForm.setCreateTime(new Date());
         newForm.setTemplate(false);
+        newForm.setTemplateId(formId);
         saveForm(newForm);
         List<Component> components = componentService.getComponents(formId);
         for (Component component : components) {
