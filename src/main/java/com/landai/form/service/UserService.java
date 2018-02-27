@@ -18,4 +18,8 @@ public class UserService {
     public User getUser(String username) {
         return userRepository.getOne(username);
     }
+
+    public User getUserByTelephone(String telephone) {
+        return userRepository.getUserByTelephone(telephone);
+    }
 }
