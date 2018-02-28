@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col">
-                <div id="formArea">
+                <div id="formArea" class="border box-shadow">
                     <div id="formTitle"><h4>${form.title}</h4></div>
                     <div id="formDescription">${form.description}</div>
                     <div id="formControlsArea"></div>

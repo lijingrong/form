@@ -65,7 +65,7 @@ public class FormController {
                 control.setComponentId(component.getId());
                 control.setFormId(formId);
                 control.setLabel(componentControl.getControlLabel());
-                control.setName(componentControl.getControlName() +"_"+ component.getId());
+                control.setName(componentControl.getControlName() + "_" + component.getId());
                 controls.add(control);
             }
         } else {
@@ -265,8 +265,15 @@ public class FormController {
     }
 
     @GetMapping("/form/list")
-    public String formList(Model model) {
-        model.addAttribute("forms", formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername()));
+    public String formList(Model model, @RequestParam(value = "formStatus", required = false) FormStatus formStatus) {
+        List<Form> forms = new ArrayList<>();
+        if (formStatus != null) {
+            forms = formService.getFormsByCreatorAndStatus(CurrentUserUtil.getUser().getUsername(), formStatus);
+        } else {
+            forms = formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername());
+        }
+        model.addAttribute("forms", forms);
+        model.addAttribute("status",formStatus);
         return "userForms";
     }
 
