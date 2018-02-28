@@ -273,7 +273,7 @@ public class FormController {
             forms = formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername());
         }
         model.addAttribute("forms", forms);
-        model.addAttribute("status",formStatus);
+        model.addAttribute("status", formStatus);
         return "userForms";
     }
 
@@ -313,5 +313,13 @@ public class FormController {
         return "formData";
     }
 
-
+    /**
+     * 防止用户在构建表单时会话失效
+     * @return status
+     */
+    @GetMapping("/form/keepSession")
+    @ResponseBody
+    public Status keepSession() {
+        return Status.SUCCESS;
+    }
 }

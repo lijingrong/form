@@ -227,5 +227,11 @@
             $("#control_area_" + componentId).addClass("selected");
         });
     }
+    setInterval(function () {
+        $.ajax({
+            method:'get',
+            url:'/form/keepSession'
+        })
+    },600000)
 </script>
 <#include "footer.ftl"/>
