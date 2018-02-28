@@ -9,6 +9,7 @@
     <meta name="keywords" content="表单,单页表单,表单设计,在线表单,数据分析,调查问卷,满意度调查,客户关系管理,反馈表,登记表">
     <meta name="description"
           content="单页表单一款在线表单设计工具,帮助用户轻松完成表单设计和数据收集工作">
+    <link rel="shortcut icon" href="/static/images/favicon.ico"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/static/css/index.css" rel="stylesheet">
@@ -39,11 +40,7 @@
     <div class="navbar navbar-white bg-white border-bottom box-shadow">
         <div class="container d-flex justify-content-between">
             <a href="/" class="navbar-brand d-flex align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                    <circle cx="12" cy="13" r="4"></circle>
-                </svg>
+                <img src="/static/images/logo.png" style="width: 30px">
                 <strong>单页表单</strong>
             </a>
             <div>

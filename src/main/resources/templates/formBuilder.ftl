@@ -57,7 +57,22 @@
                 </div>
             </div>
             <div class="col">
-                <div id="attributeArea"></div>
+                <div id="attributeArea">
+                    <div class="card" style="display: none">
+                        <div class="card-header">
+                            控件设置
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-pane fade show active" id="attributes" role="tabpanel" aria-labelledby="attribute-tab">
+                                <div class="container">
+                                    <div class="alert alert-warning" role="alert">
+                                        点击表单里的控件进行相关设置
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" style="height: 1px;"></div>
@@ -75,6 +90,7 @@
             accept: '.control',
             drop: function (event, ui) {
                 var $this = $(this);
+                $this.find('div.alert').remove();
                 $.ajax({
                     method: "get",
                     url: "/form/" + formId + "/getComponent",
@@ -100,7 +116,14 @@
             method: 'get',
             url: '/form/' + formId
         }).done(function (html) {
-            $("#formControlsArea").append(html);
+            var $formControlsArea = $("#formControlsArea");
+            $formControlsArea.empty().append(html);
+            if($formControlsArea.find('div.control-area').length===0){
+                $formControlsArea.append($('<div class="alert alert-warning" role="alert">')
+                        .text("用鼠标从左边控件列表拖拽控件到此处"));
+            }else{
+                $('#attributeArea').find('div.card').show();
+            }
             initForm();
         });
     });

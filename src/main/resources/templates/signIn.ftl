@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>登录</title>
+    <title>单页表单-登录</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
@@ -17,12 +17,12 @@
 
 <body class="text-center">
 <form class="form-signin" method="post" action="/login">
-    <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <img class="mb-4" src="/static/images/logo-l.png" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
-    <input id="inputEmail" name="username" class="form-control" value="15951076347" placeholder="手机" required autofocus>
+    <input id="inputEmail" name="username" class="form-control"  placeholder="手机" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" value="aaa" class="form-control" placeholder="密码" required>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" value="remember-me"> 记住密码
