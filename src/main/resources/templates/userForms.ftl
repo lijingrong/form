@@ -13,6 +13,22 @@
 
     </div>
     <div class="container">
+        <#if status??>
+        <#else>
+            <#if (forms?size==0)>
+            <div class="row">
+                <div class="col-12 m-2">
+                    您还没创建过表单，<span class="text-primary">不会创建？</span>请看下面的演示教程
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <video src="http://img.dan-ye.com/video/buildFormVideo.mp4" controls="true" width="800px" height="500px"></video>
+                </div>
+            </div>
+            </#if>
+        </#if>
+
         <div class="row">
             <#list forms as form>
                 <div class="col-md-4">

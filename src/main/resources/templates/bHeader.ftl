@@ -46,8 +46,6 @@
             <div id="formEditSteps">
                 <a class="btn" href="/builder/${form.id}">编辑</a>
                 >
-                <a class="btn" href="/form/${form.id}/skin">皮肤</a>
-                >
                 <a class="btn" href="/form/${form.id}/publish">发布</a>
             </div>
 

@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>表单名称：<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="formTitleInput" required value="${title}">
+                        <input type="text" class="form-control" id="formTitleInput" autofocus autocomplete="off" required value="${title}">
                     </div>
                     <div>
                         <label>表单描述：</label>

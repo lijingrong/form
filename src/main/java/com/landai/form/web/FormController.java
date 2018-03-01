@@ -107,6 +107,12 @@ public class FormController {
         return "formPublish";
     }
 
+    @GetMapping("/form/{formId}/publishSuccess")
+    public String formPublishSuccess(@PathVariable("formId") String formId, Model model) {
+        model.addAttribute("form", formService.getForm(formId));
+        return "formPublishSuccess";
+    }
+
     @PostMapping("/form/{formId}/publish")
     @ResponseBody
     public Status postFormPublish(@PathVariable("formId") String formId,
