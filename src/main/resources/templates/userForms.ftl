@@ -15,7 +15,7 @@
     <div class="container">
         <#if status??>
         <#else>
-            <#if (forms?size==0)>
+            <#if (formPage.content?size==0)>
             <div class="row">
                 <div class="col-12 m-2">
                     您还没创建过表单，<span class="text-primary">不会创建？</span>请看下面的演示教程
@@ -30,7 +30,7 @@
         </#if>
 
         <div class="row">
-            <#list forms as form>
+            <#list formPage.content as form>
                 <div class="col-md-4">
                     <div class="card mb-4 box-shadow">
                         <img class="card-img-top"
@@ -74,6 +74,18 @@
                 </div>
             </#list>
         </div>
+        <#if (formPage.content?size>0)>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item <#if formPage.number == 0>disabled</#if>"><a class="page-link" href="/form/list?page=${formPage.number-1}&size=${formPage.size}">上一页</a></li>
+                    <#list 1..formPage.totalPages as n>
+                        <li class="page-item <#if formPage.number == (n-1)>active</#if>"><a class="page-link " href="/form/list?page=${n-1}&size=${formPage.size}">${n}</a></li>
+                    </#list>
+                    <li class="page-item <#if formPage.number == (formPage.totalPages-1)>disabled</#if>"><a class="page-link" href="/form/list?page=${formPage.number+1}&size=${formPage.size}">下一页</a></li>
+                </ul>
+            </nav>
+        </#if>
+
     </div>
 </div>
 

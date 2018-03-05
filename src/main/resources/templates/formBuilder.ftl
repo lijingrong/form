@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <div id="controlArea">
-                    <div class="container">
+                    <div class="container bg-white">
                         <div class="row border p-2  bg-light text-dark"><h6>常用控件</h6></div>
                         <div class="row">
                             <#list commonComponents>
@@ -26,7 +26,7 @@
                             </#switch>
                         </div>
                     </div>
-                    <div class="container mt-3">
+                    <div class="container mt-3 bg-white">
                         <div class="row border p-2  bg-light text-dark"><h6>自定义控件</h6></div>
                         <div class="row">
                             <#list customComponents>

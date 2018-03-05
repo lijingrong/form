@@ -14,7 +14,7 @@ public class ControlService {
     private ControlRepository controlRepository;
 
     public void save(List<Control> controlList) {
-        controlRepository.save(controlList);
+        controlRepository.saveAll(controlList);
     }
 
     public Control getControlByComponentIdAndName(Long componentId, String name) {

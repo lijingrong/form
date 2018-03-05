@@ -5,9 +5,12 @@ import com.landai.form.repository.FormRepository;
 import com.landai.form.repository.FormValueRepository;
 import com.landai.form.repository.UserRepository;
 import com.landai.form.utils.CurrentUserUtil;
+import com.landai.form.utils.PageableHolder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,12 +38,12 @@ public class FormService {
         return formRepository.getOne(formId);
     }
 
-    public List<Form> getFormsByCreator(String creator) {
-        return formRepository.getFormsByUserOrderByCreateTimeDesc(userRepository.getOne(creator));
+    public Page<Form> getFormsByCreator(String creator, Pageable pageable) {
+        return formRepository.getFormsByUserOrderByCreateTimeDesc(userRepository.getOne(creator), pageable);
     }
 
-    public List<Form> getFormsByCreatorAndStatus(String creator, FormStatus formStatus) {
-        return formRepository.getFormsByUserAndStatusOrderByCreateTimeDesc(userRepository.getOne(creator), formStatus);
+    public Page<Form> getFormsByCreatorAndStatus(String creator, FormStatus formStatus, Pageable pageable) {
+        return formRepository.getFormsByUserAndStatusOrderByCreateTimeDesc(userRepository.getOne(creator), formStatus, pageable);
     }
 
     public List<Form> getTemplateForms() {
@@ -55,8 +58,8 @@ public class FormService {
         formValueRepository.save(formValue);
     }
 
-    public List<FormValue> getAllFormValue(String formId) {
-        return formValueRepository.getFormValuesByForm(formRepository.getOne(formId));
+    public Page<FormValue> getAllFormValue(String formId) {
+        return formValueRepository.getFormValuesByForm(formRepository.getOne(formId), PageableHolder.getPageable());
     }
 
     @Transactional

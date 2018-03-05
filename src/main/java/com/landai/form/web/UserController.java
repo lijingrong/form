@@ -3,7 +3,6 @@ package com.landai.form.web;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.landai.form.model.Authority;
-import com.landai.form.model.Status;
 import com.landai.form.model.SystemRole;
 import com.landai.form.model.User;
 import com.landai.form.repository.AuthorityRepository;
@@ -14,7 +13,7 @@ import com.landai.form.utils.VerifyCodeUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +71,7 @@ public class UserController {
         String verifyCode = (String) session.getAttribute("verifyCode");
         if (StringUtils.equals(user.getPhoneCode(), phoneCode) && StringUtils.equals(user.getVerifyCode(), verifyCode)) {
             user.setUsername(uniqueIDService.getUniqueStringID());
-            user.setPassword(new Md5PasswordEncoder().encodePassword(user.getPassword(), null));
+            user.setPassword(new MessageDigestPasswordEncoder("MD5").encode(user.getPassword()));
             userService.saveUser(user);
             authorityRepository.save(new Authority(user.getUsername(), SystemRole.ROLE_ADMIN.name()));
             return "redirect:/anon/signUpSuccess";

@@ -47,11 +47,11 @@ public class ComponentService {
     @Transactional
     public void deleteComponent(Long componentId) {
         controlRepository.deleteControlByComponentId(componentId);
-        componentRepository.delete(componentId);
+        componentRepository.deleteById(componentId);
     }
 
     @Transactional
     public void batchSaveComponent(List<Component> components) {
-        componentRepository.save(components);
+        componentRepository.saveAll(components);
     }
 }

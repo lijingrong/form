@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.landai.form.model.*;
 import com.landai.form.service.*;
 import com.landai.form.utils.CurrentUserUtil;
+import com.landai.form.utils.PageableHolder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -272,13 +274,13 @@ public class FormController {
 
     @GetMapping("/form/list")
     public String formList(Model model, @RequestParam(value = "formStatus", required = false) FormStatus formStatus) {
-        List<Form> forms = new ArrayList<>();
+        Page<Form> formPage;
         if (formStatus != null) {
-            forms = formService.getFormsByCreatorAndStatus(CurrentUserUtil.getUser().getUsername(), formStatus);
+            formPage = formService.getFormsByCreatorAndStatus(CurrentUserUtil.getUser().getUsername(), formStatus, PageableHolder.getPageable());
         } else {
-            forms = formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername());
+            formPage = formService.getFormsByCreator(CurrentUserUtil.getUser().getUsername(), PageableHolder.getPageable());
         }
-        model.addAttribute("forms", forms);
+        model.addAttribute("formPage", formPage);
         model.addAttribute("status", formStatus);
         return "userForms";
     }
@@ -306,13 +308,16 @@ public class FormController {
     @GetMapping("/form/{formId}/data")
     public String formData(@PathVariable("formId") String formId, Model model) {
         model.addAttribute("controls", controlService.getControlsByFormId(formId));
-        List<FormValue> formValues = formService.getAllFormValue(formId);
+        model.addAttribute("form", formService.getForm(formId));
+        Page<FormValue> formValuePage = formService.getAllFormValue(formId);
         List<Map> values = new ArrayList<>();
+        List<FormValue> formValues = formValuePage.getContent();
         try {
             for (FormValue fv : formValues) {
                 values.add(objectMapper.readValue(fv.getFormValue(), Map.class));
             }
             model.addAttribute("data", objectMapper.writeValueAsString(values));
+            model.addAttribute("formValuePage", formValuePage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -321,6 +326,7 @@ public class FormController {
 
     /**
      * 防止用户在构建表单时会话失效
+     *
      * @return status
      */
     @GetMapping("/form/keepSession")
