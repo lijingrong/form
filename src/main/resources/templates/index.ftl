@@ -5,7 +5,7 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">简单，也不简单</h1>
-                <p class="lead text-muted">拖拽式表单设计器，帮您高效处理各类数据</p>
+                <p class="lead text-muted">拖拽式表单设计器，帮您高效收集各类数据</p>
                 <p>
                     <#if currentUser??>
 
@@ -15,10 +15,37 @@
                 </p>
             </div>
         </section>
+        <div class="container">
+            <hr class="featurette-divider">
+            <div class="row featurette mb-5">
+                <div class="col-md-12">
+                    <h2 class="featurette-heading text-center">拖拽式表单设计器，<span class="text-muted">一目了然。</span></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="http://img.dan-ye.com/formBuilder.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在线表单，表单设计器">
+                </div>
+            </div>
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-7 order-md-2">
+                    <h2 class="featurette-heading">一次设计， <span class="text-muted">多终端适配。</span></h2>
+                    <p class="lead">用户可在电脑、平板、手机端查看表单，填报数据。</p>
+                    <div class="mt-5">
+                        <img src="http://img.dan-ye.com/pcFormView.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
+                    </div>
+                </div>
+                <div class="col-md-5 order-md-1">
+                    <img src="http://img.dan-ye.com/phoneFormView.jpeg" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
+                </div>
+            </div>
+        </div>
 
         <div class="album py-5 bg-light">
             <div class="container">
-
+                <div><h1 class="lead">表单模板</h1></div>
                 <div class="row">
                     <#if forms??>
                         <#list forms as form>
@@ -46,7 +73,6 @@
                 </div>
             </div>
         </div>
-
     </main>
 
 <#include "footer.ftl"/>
