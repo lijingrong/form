@@ -38,6 +38,9 @@
         $('#formDataTable th').each(function () {
            controlNames.push($(this).attr("controlName"));
         });
+        if(data.length===0){
+            $('#formDataTable').after($('<div class="text-center">').text("暂无数据"));
+        }
         $.each(data,function (i,o) {
             var tr = $('<tr>');
             $.each(controlNames,function (i,n) {
