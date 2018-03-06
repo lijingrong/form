@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS t_qrcode;
 
 CREATE TABLE users (
   username VARCHAR(50) NOT NULL PRIMARY KEY,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   enabled  BOOLEAN     NOT NULL,
   telephone VARCHAR(20) NOT NULL UNIQUE ,
   nickname VARCHAR(50) UNIQUE ,
