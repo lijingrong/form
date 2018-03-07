@@ -2,7 +2,7 @@
 <div class="bg-light" style="min-height: 500px">
     <div class="container bg-white pt-5" style="height: 500px">
         <nav class="navbar navbar-light mb-1">
-            <a class="btn btn-primary" href="#">导出数据</a>
+            <a class="btn btn-primary" href="/form/${form.id}/data/export">导出数据</a>
         </nav>
         <table id="formDataTable" class="table">
             <thead>

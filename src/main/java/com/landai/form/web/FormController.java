@@ -8,17 +8,19 @@ import com.landai.form.utils.CurrentUserUtil;
 import com.landai.form.utils.PageableHolder;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.OutputStream;
+import java.util.*;
 
 @Controller
 public class FormController {
@@ -33,6 +35,8 @@ public class FormController {
     ComponentService componentService;
     @Autowired
     ControlService controlService;
+    @Autowired
+    ExcelService excelService;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -322,6 +326,45 @@ public class FormController {
             e.printStackTrace();
         }
         return "formData";
+    }
+
+    @GetMapping("/form/{formId}/data/export")
+    public void dataExport(HttpServletResponse response,
+                           @PathVariable("formId") String formId)
+            throws Exception {
+        List<Control> controls = controlService.getControlsByFormId(formId);
+        Form form = formService.getForm(formId);
+        Excel excel = new Excel();
+
+        List<ExcelTH> headers = new ArrayList<>();
+        for (Control control : controls) {
+            headers.add(new ExcelTH(control.getName(), control.getLabel()));
+        }
+        excel.setHeaders(headers);
+
+        List<Map> values = new ArrayList<>();
+        List<FormValue> formValues = formService.getAllFormValues(formId);
+        try {
+            for (FormValue fv : formValues) {
+                values.add(objectMapper.readValue(fv.getFormValue(), Map.class));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        excel.setValues(values);
+        excel.setSheetName(form.getTitle() + "-数据导出");
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet();
+        int rowIndex = 0;
+        rowIndex = excelService.setExportTableHeader(wb, sheet, excel, rowIndex);
+        excelService.setExportFormData(wb, sheet, excel, rowIndex);
+
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String((form.getTitle() + "-数据导出").getBytes("gb2312"), "ISO-8859-1") + "-" + new Date().getTime() + ".xlsx");
+        response.setContentType("application/vnd.ms-excel");
+        OutputStream os = response.getOutputStream();
+        wb.write(os);
+        os.close();
     }
 
     /**

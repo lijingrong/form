@@ -95,6 +95,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- poi 操作excel文件 begin-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+		</dependency>
+		<!-- poi 操作excel文件 end-->
 	</dependencies>
 
 	<build>
@@ -108,6 +121,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
