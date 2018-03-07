@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/static/images/formBuilder.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在线表单，表单设计器">
+                    <img data-src="/static/images/formBuilder.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在线表单，表单设计器">
                 </div>
             </div>
             <hr class="featurette-divider">
@@ -34,11 +34,11 @@
                     <h2 class="featurette-heading">一次设计， <span class="text-muted">多终端适配。</span></h2>
                     <p class="lead">用户可在电脑、平板、手机端查看表单，填报数据。</p>
                     <div class="mt-5">
-                        <img src="/static/images/pcFormView.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
+                        <img data-src="/static/images/pcFormView.png" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
                     </div>
                 </div>
                 <div class="col-md-5 order-md-1">
-                    <img src="/static/images/phoneFormView.jpeg" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
+                    <img data-src="/static/images/phoneFormView.jpeg" class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="在表单，多终端适配">
                 </div>
             </div>
         </div>
