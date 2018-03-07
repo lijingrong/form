@@ -13,4 +13,6 @@ import java.util.List;
 public interface FormValueRepository extends JpaRepository<FormValue, Long> {
 
     Page<FormValue> getFormValuesByForm(Form form, Pageable pageable);
+
+    List<FormValue> getFormValuesByForm(Form form);
 }

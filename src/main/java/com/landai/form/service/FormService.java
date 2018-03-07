@@ -62,6 +62,10 @@ public class FormService {
         return formValueRepository.getFormValuesByForm(formRepository.getOne(formId), PageableHolder.getPageable());
     }
 
+    public List<FormValue> getAllFormValues(String formId) {
+        return formValueRepository.getFormValuesByForm(formRepository.getOne(formId));
+    }
+
     @Transactional
     public Form copyForm(String formId) {
         Form form = getForm(formId);
