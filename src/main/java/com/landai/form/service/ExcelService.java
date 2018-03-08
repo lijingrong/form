@@ -378,6 +378,8 @@ public class ExcelService {
         if (null != ob) {
             if (ob instanceof ArrayList) {
                 cellValue = StringUtils.join(((ArrayList) ob).toArray(), ",");
+            } else if (ob.getClass().isArray()) {
+                cellValue = StringUtils.join(ob, ",");
             } else {
                 cellValue = ob.toString();
             }
