@@ -18,7 +18,7 @@
     <script src="/static/js/holder.min.js"></script>
     <script src="/static/js/require.js"></script>
     <script type="text/javascript">
-        var myLazyLoad = new LazyLoad();
+        $("img.lazyload").lazyload();
     </script>
 </body>
 </html>

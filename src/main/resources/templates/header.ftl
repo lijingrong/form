@@ -23,7 +23,7 @@
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
     <script src="/static/laydate/laydate.js"></script>
     <script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/8.6.0/lazyload.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-beta.2/lazyload.js"></script>
     <script>
         var _hmt = _hmt || [];
         (function() {
