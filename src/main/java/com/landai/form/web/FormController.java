@@ -360,7 +360,7 @@ public class FormController {
         rowIndex = excelService.setExportTableHeader(wb, sheet, excel, rowIndex);
         excelService.setExportFormData(wb, sheet, excel, rowIndex);
 
-        response.setHeader("Content-Disposition", "attachment;filename=" + new String((form.getTitle() + "-数据导出").getBytes("gb2312"), "ISO-8859-1") + "-" + new Date().getTime() + ".xlsx");
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String((form.getTitle() + "-数据导出").getBytes("UTF-8"), "ISO-8859-1") + "-" + new Date().getTime() + ".xlsx");
         response.setContentType("application/vnd.ms-excel");
         OutputStream os = response.getOutputStream();
         wb.write(os);
