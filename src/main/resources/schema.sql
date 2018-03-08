@@ -15,7 +15,8 @@ CREATE TABLE users (
   enabled  BOOLEAN     NOT NULL,
   telephone VARCHAR(20) NOT NULL UNIQUE ,
   nickname VARCHAR(50) UNIQUE ,
-  organization VARCHAR(100)
+  organization VARCHAR(100),
+  create_time DATETIME DEFAULT now()
 );
 
 CREATE TABLE authorities (
