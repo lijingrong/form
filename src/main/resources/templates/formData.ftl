@@ -20,11 +20,48 @@
         <#if (formValuePage.content?size>0)>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item <#if formValuePage.number == 0>disabled</#if>"><a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number-1}&size=${formValuePage.size}">上一页</a></li>
-                    <#list 1..formValuePage.totalPages as n>
-                        <li class="page-item <#if formValuePage.number == (n-1)>active</#if>"><a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a></li>
-                    </#list>
-                    <li class="page-item <#if formValuePage.number == (formValuePage.totalPages-1)>disabled</#if>"><a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number+1}&size=${formValuePage.size}">下一页</a></li>
+                    <li class="page-item <#if formValuePage.number == 0>disabled</#if>">
+                        <a class="page-link" href="/form/${form.id}/data?page=0&size=${formValuePage.size}">第一页</a>
+                    </li>
+                    <li class="page-item <#if formValuePage.number == 0>disabled</#if>">
+                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number-1}&size=${formValuePage.size}">上一页</a>
+                    </li>
+                    <#if (formValuePage.totalPages > 9)>
+                        <#if (formValuePage.number < 4)>
+                            <#list 1..9 as n>
+                                <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
+                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                </li>
+                            </#list>
+                        </#if>
+                        <#if (formValuePage.number > (formValuePage.totalPages - 5))>
+                            <#list (formValuePage.totalPages - 8)..formValuePage.totalPages as n>
+                                <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
+                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                </li>
+                            </#list>
+                        </#if>
+                        <#if !(formValuePage.number < 4 || formValuePage.number > (formValuePage.totalPages - 5)) >
+                            <#list (formValuePage.number - 3)..(formValuePage.number + 5) as n>
+                                <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
+                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                </li>
+                            </#list>
+                        </#if>
+                    </#if>
+                    <#if (formValuePage.totalPages <= 9)>
+                        <#list 1..formValuePage.totalPages as n>
+                            <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
+                                <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                            </li>
+                        </#list>
+                    </#if>
+                    <li class="page-item <#if formValuePage.number == (formValuePage.totalPages-1)>disabled</#if>">
+                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number+1}&size=${formValuePage.size}">下一页</a>
+                    </li>
+                    <li class="page-item <#if formValuePage.number == (formValuePage.totalPages-1)>disabled</#if>">
+                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.totalPages - 1}&size=${formValuePage.size}">最后一页</a>
+                    </li>
                 </ul>
             </nav>
         </#if>
