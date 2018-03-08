@@ -1,6 +1,9 @@
 <#include "header.ftl"/>
 <div class="bg-light" style="min-height: 500px">
     <div class="container bg-white pt-5 pb-2">
+        <div class="mb-2">
+            <h4>${form.title}</h4>
+        </div>
         <#if (formValuePage.content?size>0)>
             <nav class="navbar navbar-light mb-1">
                 <a class="btn btn-primary" href="/form/${form.id}/data/export">导出数据</a>
