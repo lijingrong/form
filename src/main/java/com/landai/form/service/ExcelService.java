@@ -404,7 +404,7 @@ public class ExcelService {
         setHeaderRow(wb, sheet, excel, rowIndex++);
         setExportData(wb, sheet, excel, rowIndex);
 
-        response.setHeader("Content-Disposition", "attachment;filename=" + excel.getFileName() + "." + XLSX_FILE);
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String((excel.getFileName()).getBytes("UTF-8"), "ISO-8859-1") + "-" + new Date().getTime() + "." + XLSX_FILE);
         response.setContentType("application/vnd.ms-excel");
         OutputStream os = response.getOutputStream();
         wb.write(os);

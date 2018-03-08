@@ -16,8 +16,6 @@ public class Excel {
     private Short defaultColumnWidth = 5000;
     private Short headerRowHeight = 500;
     private Short bodyRowHeight;
-    private String sheetName;
-    private String fileName;
-    private Short titleFontSize;
-    private Short headerFontSize;
+    private String sheetName = "新建文档";
+    private String fileName = "新建文件";
 }

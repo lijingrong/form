@@ -353,7 +353,7 @@ public class FormController {
         }
         excel.setValues(values);
         excel.setSheetName(form.getTitle() + "-数据导出");
-        excel.setFileName(new String((form.getTitle() + "-数据导出").getBytes("gb2312"), "ISO-8859-1") + "-" + new Date().getTime());
+        excel.setFileName(form.getTitle() + "-数据导出");
 
         excelService.exportData(response, excel);
     }
