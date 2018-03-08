@@ -14,7 +14,10 @@ public class Excel {
     private List<ExcelTH> headers;
     private List<Map> values;
     private Short defaultColumnWidth = 5000;
-    private Short defaultRowHeight = 500;
-    private Short sheetNum = 0;
+    private Short headerRowHeight = 500;
+    private Short bodyRowHeight;
     private String sheetName;
+    private String fileName;
+    private Short titleFontSize;
+    private Short headerFontSize;
 }
