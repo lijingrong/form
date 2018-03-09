@@ -46,6 +46,7 @@
             </a>
             <div>
                 <#if currentUser??>
+                    <span class="text-muted mr-2">您好,${currentUser.telephone?replace(currentUser.telephone?substring(3,7),"****")}</span>
                     <a class="btn btn-outline-primary" href="/form/list">我的表单</a>
                 <#else >
                 <a href="/login" class="btn btn-secondary">登录</a>
