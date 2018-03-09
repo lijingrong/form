@@ -19,6 +19,7 @@ INSERT INTO t_component_prototype (name, label, view_page, edit_page, data, vali
   ('select', '下拉选择', 'select.ftl', 'multipleValueEdit.ftl', '', '', FALSE, 'select'),
   ('date', '日期', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'date'),
   ('datetime', '日期时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'datetime'),
+  ('time', '时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'time'),
   ('position', '职位', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'string');
 
 INSERT INTO t_component_control (component_name, control_label, control_name) VALUES

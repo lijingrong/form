@@ -9,7 +9,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             if (device.mobile() || device.tablet()) {
-                var $type = {'date': 'date', 'datetime': 'datetime-local'};
+                var $type = {'date': 'date', 'datetime': 'datetime-local', 'time': 'time'};
                 if ($type.${type} !== undefined) {
                     $("#control_${id}").attr("type", $type.${type}).attr("style", "height: 38px;");
                 }
