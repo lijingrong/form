@@ -32,14 +32,14 @@
                 <label for="confirmPassword">确认密码：</label>
                 <input id="confirmPassword" type="password" class="form-control" name="confirmPassword">
             </div>
-            <div class="form-group">
+            <#--<div class="form-group">
                 <label for="nickname">昵称：</label>
                 <input type="text" class="form-control" name="nickname" id="nickname">
             </div>
             <div class="form-group">
                 <label for="organization">单位/组织：</label>
                 <input type="text" class="form-control" name="organization" id="organization">
-            </div>
+            </div>-->
             <button class="btn btn-lg btn-primary btn-block" type="submit">注册账号</button>
         </form>
     </div>
@@ -108,12 +108,12 @@
             confirmPassword:{
               equalTo:'#password'
             },
-            nickname: {
+            /*nickname: {
                 required: true
             },
             organization: {
                 required: true
-            },
+            },*/
             phoneCode:{
                 required:true
             },
