@@ -3,7 +3,7 @@
         <p class="float-right">
             <a href="#">回到顶部</a>
         </p>
-        <p>&copy; 单页表单版权所有</p>
+        <p>&copy; 单页表单版权所有&nbsp;&nbsp;&nbsp;&nbsp;服务邮箱： <a href="mailto:service@dan-ye.com">service@dan-ye.com</a></p>
     </div>
 </footer>
 
