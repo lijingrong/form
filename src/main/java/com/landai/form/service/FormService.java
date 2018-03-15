@@ -38,6 +38,10 @@ public class FormService {
         return formRepository.getOne(formId);
     }
 
+    public Form getByIdAndUser(String formId, User user) {
+        return formRepository.getByIdAndUser(formId, user);
+    }
+
     public Page<Form> getFormsByCreator(String creator, Pageable pageable) {
         return formRepository.getFormsByUserOrderByCreateTimeDesc(userRepository.getOne(creator), pageable);
     }
