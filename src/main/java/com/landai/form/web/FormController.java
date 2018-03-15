@@ -95,9 +95,13 @@ public class FormController {
 
     @GetMapping("/builder/{formId}")
     public String formBuilder(@PathVariable("formId") String formId, Model model) {
+        Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
+        if (form == null) {
+            return "noAuthority";
+        }
         model.addAttribute("commonComponents", componentPrototypeService.getComponentPrototypesByIsCommon(true));
         model.addAttribute("customComponents", componentPrototypeService.getComponentPrototypesByIsCommon(false));
-        model.addAttribute("form", formService.getForm(formId));
+        model.addAttribute("form", form);
         return "formBuilder";
     }
 
@@ -109,7 +113,11 @@ public class FormController {
 
     @GetMapping("/form/{formId}/publish")
     public String formPublish(@PathVariable("formId") String formId, Model model) {
-        model.addAttribute("form", formService.getForm(formId));
+        Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
+        if (form == null) {
+            return "noAuthority";
+        }
+        model.addAttribute("form", form);
         return "formPublish";
     }
 
@@ -123,7 +131,10 @@ public class FormController {
     @ResponseBody
     public Status postFormPublish(@PathVariable("formId") String formId,
                                   @RequestParam("afterPostDesc") String afterPostDesc) {
-        Form form = formService.getForm(formId);
+        Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
+        if (form == null) {
+            return Status.FAILURE;
+        }
         form.setStatus(FormStatus.PUBLISHED);
         form.setAfterPostDesc(afterPostDesc);
         formService.saveForm(form);
@@ -311,8 +322,12 @@ public class FormController {
 
     @GetMapping("/form/{formId}/data")
     public String formData(@PathVariable("formId") String formId, Model model) {
+        Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
+        if (form == null) {
+            return "noAuthority";
+        }
         model.addAttribute("controls", controlService.getControlsByFormId(formId));
-        model.addAttribute("form", formService.getForm(formId));
+        model.addAttribute("form", form);
         Page<FormValue> formValuePage = formService.getAllFormValue(formId);
         List<Map> values = new ArrayList<>();
         List<FormValue> formValues = formValuePage.getContent();
@@ -332,8 +347,11 @@ public class FormController {
     public void dataExport(HttpServletResponse response,
                            @PathVariable("formId") String formId)
             throws Exception {
+        Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
+        if (form == null) {
+            return ;
+        }
         List<Control> controls = controlService.getControlsByFormId(formId);
-        Form form = formService.getForm(formId);
         Excel excel = new Excel();
 
         List<ExcelTH> headers = new ArrayList<>();

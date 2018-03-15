@@ -19,4 +19,6 @@ public interface FormRepository extends JpaRepository<Form, String> {
 
     List<Form> getFormsByTemplate(Boolean isTemplate);
 
+    Form getByIdAndUser(String formId,User user);
+
 }
