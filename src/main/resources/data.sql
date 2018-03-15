@@ -20,7 +20,8 @@ INSERT INTO t_component_prototype (name, label, view_page, edit_page, data, vali
   ('date', '日期', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'date'),
   ('datetime', '日期时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'datetime'),
   ('time', '时间', 'date.ftl', 'stringEdit.ftl', '', '', FALSE, 'time'),
-  ('position', '职位', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'string');
+  ('position', '职位', 'text.ftl', 'stringEdit.ftl', '', '', TRUE, 'string'),
+  ('number', '数字', 'text.ftl', 'stringEdit.ftl', '', '', FALSE, 'number');
 
 INSERT INTO t_component_control (component_name, control_label, control_name) VALUES
   ('compositeAddress', '省', 'province'),
