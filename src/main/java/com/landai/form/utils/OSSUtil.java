@@ -10,8 +10,12 @@ import java.util.Random;
 public class OSSUtil {
 
     public static String upload(InputStream is) {
+        return upload(is, "jpg");
+    }
+
+    public static String upload(InputStream is, String postfix) {
         String ossImgName = DateFormatUtils.format(new Date(), "yyyyMMddHHmmss") + getFourRandom()
-                + ".jpg";
+                + "." + postfix;
         // endpoint以杭州为例，其它region请按实际情况填写
         String endpoint = "oss-cn-shanghai.aliyuncs.com";
         // accessKey请登录https://ak-console.aliyun.com/#/查看

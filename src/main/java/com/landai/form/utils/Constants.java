@@ -6,4 +6,5 @@ public final class Constants {
     public final static String CURRENT_USER = "currentUser";
     public static final String FORM_DOMAIN = "https://www.dan-ye.com/f/";
     public static final int PAGE_SIZE = 9;
+    public static final String IMAGE_DOMAIN = "http://img.dan-ye.com/";
 }
