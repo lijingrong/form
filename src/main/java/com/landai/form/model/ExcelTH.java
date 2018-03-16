@@ -12,12 +12,14 @@ public class ExcelTH {
 
     private String name;
     private String label;
+    private String type;
 
     public ExcelTH() {
     }
 
-    public ExcelTH(String name, String label) {
+    public ExcelTH(String name, String label, String type) {
         this.name = name;
         this.label = label;
+        this.type = type;
     }
 }

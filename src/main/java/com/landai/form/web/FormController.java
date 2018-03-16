@@ -349,14 +349,14 @@ public class FormController {
             throws Exception {
         Form form = formService.getByIdAndUser(formId, CurrentUserUtil.getUser());
         if (form == null) {
-            return ;
+            return;
         }
-        List<Control> controls = controlService.getControlsByFormId(formId);
+        List<Component> components = componentService.getComponents(formId);
         Excel excel = new Excel();
 
         List<ExcelTH> headers = new ArrayList<>();
-        for (Control control : controls) {
-            headers.add(new ExcelTH(control.getName(), control.getLabel()));
+        for (Component component : components) {
+            headers.add(new ExcelTH(component.getName(), component.getLabel(), component.getType()));
         }
         excel.setHeaders(headers);
 

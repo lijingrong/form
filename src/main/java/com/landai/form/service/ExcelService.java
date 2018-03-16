@@ -6,13 +6,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -349,14 +354,21 @@ public class ExcelService {
     private Integer setExportData(Workbook wb, Sheet sheet, Excel excel, Integer rowIndex) {
         if (excel.getValues().size() > 0) {
             Row row;
+            Drawing drawing = sheet.createDrawingPatriarch();
             for (Map map : excel.getValues()) {
                 row = sheet.createRow(rowIndex);
                 if (null != excel.getBodyRowHeight()) {
                     row.setHeight(excel.getBodyRowHeight());
                 }
-                int columnIndex = 0;
+                Integer columnIndex = 0;
                 for (ExcelTH header : excel.getHeaders()) {
-                    columnIndex = handleSingleData(wb, row, map.get(header.getName()), columnIndex);
+                    Object ob = map.get(header.getName());
+                    if (header.getType().equals("image")) {
+                        row.setHeight(null != excel.getBodyRowHeight() ? excel.getBodyRowHeight() : (short) 1000);
+                        columnIndex = handlePictureData(wb, row, drawing, ob, columnIndex, rowIndex);
+                    } else {
+                        columnIndex = handleTextData(wb, row, ob, columnIndex);
+                    }
                 }
                 rowIndex++;
             }
@@ -365,7 +377,7 @@ public class ExcelService {
     }
 
     /**
-     * 处理导出单条数据
+     * 处理导出单条文本数据
      *
      * @param wb          workbook对象
      * @param row         row对象
@@ -373,7 +385,7 @@ public class ExcelService {
      * @param columnIndex 列索引
      * @return Integer
      */
-    private Integer handleSingleData(Workbook wb, Row row, Object ob, Integer columnIndex) {
+    private Integer handleTextData(Workbook wb, Row row, Object ob, Integer columnIndex) {
         String cellValue = "";
         if (null != ob) {
             if (ob instanceof ArrayList) {
@@ -385,6 +397,36 @@ public class ExcelService {
             }
         }
         setCellStyleAndValue(row, setBodyCellStyle(wb), columnIndex, cellValue);
+        columnIndex++;
+        return columnIndex;
+    }
+
+    /**
+     * 处理导出单条图片数据
+     *
+     * @param wb          workbook对象
+     * @param row         row对象
+     * @param drawing     drawing对象
+     * @param ob          数据值
+     * @param columnIndex 列索引
+     * @param rowIndex    行索引
+     * @return Integer
+     */
+    private Integer handlePictureData(Workbook wb, Row row, Drawing drawing, Object ob, Integer columnIndex, Integer rowIndex) {
+        setCellStyleAndValue(row, setBodyCellStyle(wb), columnIndex, "");
+        try {
+            if (null != ob) {
+                ByteArrayOutputStream bo = new ByteArrayOutputStream();
+                BufferedImage bi = ImageIO.read(new URL(ob.toString() + "?x-oss-process=image/resize,w_500/quality,q_100"));
+                ImageIO.write(bi, "jpg", bo);
+                ClientAnchor anchor = new XSSFClientAnchor(0, 0, 1023, 255,
+                        columnIndex, rowIndex, (columnIndex + 1), (rowIndex + 1));
+                anchor.setAnchorType(ClientAnchor.AnchorType.MOVE_AND_RESIZE);
+                drawing.createPicture(anchor, wb.addPicture(bo.toByteArray(), Workbook.PICTURE_TYPE_JPEG));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         columnIndex++;
         return columnIndex;
     }
