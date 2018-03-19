@@ -68,7 +68,7 @@ public class FormController {
         if (componentControls != null && !componentControls.isEmpty()) {
             for (ComponentControl componentControl : componentControls) {
                 Control control = new Control();
-                control.setComponentId(component.getId());
+                control.setComponent(component);
                 control.setFormId(formId);
                 control.setLabel(componentControl.getControlLabel());
                 control.setName(componentControl.getControlName() + "_" + component.getId());
@@ -76,7 +76,7 @@ public class FormController {
             }
         } else {
             Control control = new Control();
-            control.setComponentId(component.getId());
+            control.setComponent(component);
             control.setFormId(formId);
             control.setLabel(component.getLabel());
             control.setName(component.getName());
@@ -351,12 +351,12 @@ public class FormController {
         if (form == null) {
             return;
         }
-        List<Component> components = componentService.getComponents(formId);
+        List<Control> controls = controlService.getControlsByFormId(formId);
         Excel excel = new Excel();
 
         List<ExcelTH> headers = new ArrayList<>();
-        for (Component component : components) {
-            headers.add(new ExcelTH(component.getName(), component.getLabel(), component.getType()));
+        for (Control control : controls) {
+            headers.add(new ExcelTH(control.getName(), control.getLabel(), control.getComponent().getType()));
         }
         excel.setHeaders(headers);
 

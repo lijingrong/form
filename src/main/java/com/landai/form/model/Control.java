@@ -13,7 +13,9 @@ public class Control {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String formId;
-    private Long componentId;
+    @OneToOne
+    @JoinColumn(name = "component_id")
+    private Component component;
     private String name;
     private String label;
 

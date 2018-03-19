@@ -100,7 +100,7 @@ public class FormService {
             List<Control> cControls = new ArrayList<>();
             for (Control control : controls) {
                 Control nControl = new Control();
-                nControl.setComponentId(nComponent.getId());
+                nControl.setComponent(nComponent);
                 nControl.setFormId(newForm.getId());
                 nControl.setLabel(control.getLabel());
                 if (control.getName().contains("_")) {

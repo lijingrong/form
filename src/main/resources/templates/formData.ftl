@@ -13,7 +13,7 @@
             <thead>
             <tr>
             <#list controls as control>
-                <th controlName="${control.name}">${control.label}</th>
+                <th controlName="${control.name}" controlType="${control.component.type}">${control.label}</th>
             </#list>
             </tr>
             </thead>
@@ -27,27 +27,31 @@
                         <a class="page-link" href="/form/${form.id}/data?page=0&size=${formValuePage.size}">第一页</a>
                     </li>
                     <li class="page-item <#if formValuePage.number == 0>disabled</#if>">
-                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number-1}&size=${formValuePage.size}">上一页</a>
+                        <a class="page-link"
+                           href="/form/${form.id}/data?page=${formValuePage.number-1}&size=${formValuePage.size}">上一页</a>
                     </li>
                     <#if (formValuePage.totalPages > 9)>
                         <#if (formValuePage.number < 4)>
                             <#list 1..9 as n>
                                 <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
-                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                    <a class="page-link "
+                                       href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
                                 </li>
                             </#list>
                         </#if>
                         <#if (formValuePage.number > (formValuePage.totalPages - 5))>
                             <#list (formValuePage.totalPages - 8)..formValuePage.totalPages as n>
                                 <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
-                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                    <a class="page-link "
+                                       href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
                                 </li>
                             </#list>
                         </#if>
                         <#if !(formValuePage.number < 4 || formValuePage.number > (formValuePage.totalPages - 5)) >
                             <#list (formValuePage.number - 3)..(formValuePage.number + 5) as n>
                                 <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
-                                    <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                    <a class="page-link "
+                                       href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
                                 </li>
                             </#list>
                         </#if>
@@ -55,15 +59,18 @@
                     <#if (formValuePage.totalPages <= 9)>
                         <#list 1..formValuePage.totalPages as n>
                             <li class="page-item <#if formValuePage.number == (n-1)>active</#if>">
-                                <a class="page-link " href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
+                                <a class="page-link "
+                                   href="/form/${form.id}/data?page=${n-1}&size=${formValuePage.size}">${n}</a>
                             </li>
                         </#list>
                     </#if>
                     <li class="page-item <#if formValuePage.number == (formValuePage.totalPages-1)>disabled</#if>">
-                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.number+1}&size=${formValuePage.size}">下一页</a>
+                        <a class="page-link"
+                           href="/form/${form.id}/data?page=${formValuePage.number+1}&size=${formValuePage.size}">下一页</a>
                     </li>
                     <li class="page-item <#if formValuePage.number == (formValuePage.totalPages-1)>disabled</#if>">
-                        <a class="page-link" href="/form/${form.id}/data?page=${formValuePage.totalPages - 1}&size=${formValuePage.size}">最后一页</a>
+                        <a class="page-link"
+                           href="/form/${form.id}/data?page=${formValuePage.totalPages - 1}&size=${formValuePage.size}">最后一页</a>
                     </li>
                 </ul>
             </nav>
@@ -73,20 +80,25 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-       var data = [],controlNames=[];
+        var data = [], controlComponents = [];
        <#if data??>
-           data=${data};
+           data =${data};
        </#if>
         $('#formDataTable th').each(function () {
-           controlNames.push($(this).attr("controlName"));
+            controlComponents.push({name: $(this).attr("controlName"), type: $(this).attr("controlType")});
         });
-        if(data.length===0){
+        if (data.length === 0) {
             $('#formDataTable').after($('<div class="text-center">').text("暂无数据"));
         }
-        $.each(data,function (i,o) {
+        $.each(data, function (i, o) {
             var tr = $('<tr>');
-            $.each(controlNames,function (i,n) {
-                tr.append($('<td>').text(o[n]))
+            $.each(controlComponents, function (i, d) {
+                if (d && d.type !== undefined && d.type === "image") {
+                    var _html = o[d.name] !== undefined ? o[d.name] : "";
+                    tr.append($('<td>').html('<img src="' + _html + '" style="width: 10rem;">'));
+                } else {
+                    tr.append($('<td>').text(o[d.name]));
+                }
             });
             $('#formDataTable').append(tr);
         })
