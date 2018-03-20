@@ -27,32 +27,46 @@
                         '<input type="hidden" id="control_${id}" name="${name}"/>'
                 );
 
-                var uploader = WebUploader.create({
-                    auto: true,
-                    swf: '/static/webuploader/Uploader.swf',
-                    server: "/upload/singleUpload",
-                    pick: {
-                        id: '#upload_control_${id}',
-                        innerHTML: '上传照片',
-                        multiple: false
+                requirejs.config({
+                    paths: {
+                        jquery: ['//code.jquery.com/jquery-1.12.4'],
+                        webuploader: '/static/webuploader/webuploader.min',
+                        'jquery-no-conflict': '/static/js/jquery-no-conflict'
                     },
-                    accept: {
-                        title: 'Images',
-                        extensions: 'jpg,jpeg,png',
-                        mimeTypes: 'image/*'
+                    map: {
+                        '*': { 'jquery': 'jquery-no-conflict'},
+                        'jquery-no-conflict': { 'jquery': 'jquery'}
                     }
                 });
-                uploader.on('uploadProgress', function (file, percentage) {
-                    $("#upload_control_${id}_progress").show();
-                    $("#upload_control_${id}_progress_text").css("width", percentage * 100 + "%")
-                            .text(percentage * 100 + "%");
-                });
-                uploader.on('uploadSuccess', function (file, data) {
-                    $("#control_${id}").val(data["fileUrl"]);
-                    $("#preview_control_${id}_img").attr("src", data["fileUrl"]);
-                });
-                uploader.on('uploadComplete', function () {
-                    $("#upload_control_${id}_progress").hide();
+
+                require(['webuploader', 'jquery'], function (WebUploader) {
+                    var uploader = WebUploader.create({
+                        auto: true,
+                        swf: '/static/webuploader/Uploader.swf',
+                        server: "/upload/singleUpload",
+                        pick: {
+                            id: '#upload_control_${id}',
+                            innerHTML: '上传照片',
+                            multiple: false
+                        },
+                        accept: {
+                            title: 'Images',
+                            extensions: 'jpg,jpeg,png',
+                            mimeTypes: 'image/*'
+                        }
+                    });
+                    uploader.on('uploadProgress', function (file, percentage) {
+                        $("#upload_control_${id}_progress").show();
+                        $("#upload_control_${id}_progress_text").css("width", percentage * 100 + "%")
+                                .text(percentage * 100 + "%");
+                    });
+                    uploader.on('uploadSuccess', function (file, data) {
+                        $("#control_${id}").val(data["fileUrl"]);
+                        $("#preview_control_${id}_img").attr("src", data["fileUrl"]);
+                    });
+                    uploader.on('uploadComplete', function () {
+                        $("#upload_control_${id}_progress").hide();
+                    });
                 });
             }
 

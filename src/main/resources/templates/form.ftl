@@ -16,7 +16,6 @@
     <script src="/static/js/jquery.form.min.js"></script>
     <script src="https://cdn.bootcss.com/device.js/0.2.7/device.min.js"></script>
     <script src="/static/js/validate-card-num.js"></script>
-    <script src="/static/webuploader/webuploader.min.js"></script>
     <style>
         .required {
             color: red;

@@ -24,7 +24,6 @@
     <script src="/static/laydate/laydate.js"></script>
     <script src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-beta.2/lazyload.js"></script>
-    <script src="/static/webuploader/webuploader.min.js"></script>
     <script>
         var _hmt = _hmt || [];
         (function() {
