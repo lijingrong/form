@@ -1,4 +1,5 @@
 USE form;
+
 DROP TABLE IF EXISTS t_form;
 DROP TABLE IF EXISTS t_form_value;
 DROP TABLE IF EXISTS t_component_prototype;
